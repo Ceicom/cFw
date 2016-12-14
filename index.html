@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+    </head>
+<body>
+    <hr />
+
+    <h3>cModal</h3>
+
+    <div hidden>
+        <button data-modal="teste123">ABRIR MODAL</button>
+
+        <div id="teste123" hidden>
+            <h1>Dolor sit.</h1>
+            <p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
+            <p>Placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante.</p>
+            <p>Fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget.</p>
+            <p><strong>Amet, consectetur adipiscing elit.</strong></p>
+            <p><small>Elit fusce vel sapien elit in malesuada.</small></p>
+        </div>
+    </div>
+
+    <hr />
+
+    <h3>matchHeight</h3>
+    <div hidden>
+
+        <div class="mh1" style="width:25%; float:left; background-color:red;">Tincidunt integer eu augue augue nunc elit dolor.</div>
+        <div class="mh1" style="width:25%; float:left; background-color:blue;">Placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum tempor mattis ut vitae feugiat augue cras ut metus a risus iaculis scelerisque eu ac ante.</div>
+        <div class="mh1" style="width:25%; float:left; background-color:yellow;">Fusce non varius purus aenean nec magna felis fusce vestibulum velit mollis odio sollicitudin lacinia aliquam posuere, sapien elementum lobortis tincidunt, turpis dui ornare nisl, sollicitudin interdum turpis nunc eget.</div>
+        <div class="mh1" style="width:25%; float:left; font-size:20px; background-color:green;">Sem nulla eu ultricies orci praesent id augue nec lorem pretium congue sit amet ac nunc fusce iaculis lorem eu diam hendrerit at mattis purus dignissim vivamus mauris tellus, fringilla. Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.</div>
+
+        <br clear="all" />
+        <br />
+
+        <div class="mh" style="width:25%; float:left; background-color:chartreuse; font-size:50px;">1</div>
+        <div class="mh" style="width:25%; float:left; background-color:cornflowerblue; font-size:25px;">2</div>
+        <div class="mh" style="width:25%; float:left; background-color:coral; font-size:30px;">3</div>
+        <div class="mh" style="width:25%; float:left; background-color:dimgray; font-size:75px;">4</div>
+
+
+        <br clear="all" />
+        <br />
+
+        <div data-mh style="width:25%; float:left; background-color:chartreuse; font-size:5px;">1</div>
+        <div data-mh style="width:25%; float:left; background-color:cornflowerblue; font-size:10px;">2</div>
+        <div data-mh style="width:25%; float:left; background-color:coral; font-size:15px;">3</div>
+        <div data-mh style="width:25%; float:left; background-color:dimgray; font-size:7px;">4</div>
+    </div>
+
+    <hr clear="all" />
+
+    <h3>cidadeEstado</h3>
+
+    <div hidden>
+
+        <select id="estado">
+            <option>carregando...</option>
+        </select>
+        <select id="cidade">
+            <option>carregando...</option>
+        </select>
+
+        <br />
+
+        <select id="estado1">
+            <option>carregando...</option>
+        </select>
+        <select id="cidade1">
+            <option>carregando...</option>
+        </select>
+    </div>
+
+    <hr />
+
+    <h3>zipcode</h3>
+
+    <div hidden>
+
+        <input type="text" value="85604000" data-zipcode="zip" data-zipcode-group="1" />
+        <input type="text" value="" data-zipcode="street" data-zipcode-group="1" />
+        <input type="text" value="" data-zipcode="district" data-zipcode-group="1" />
+        <!--<input type="text" value="" data-zipcode="state" data-zipcode-group="1" />
+        <input type="text" value="" data-zipcode="city" data-zipcode-group="1"/>-->
+
+        <br />
+        <select data-list="states" data-list-group="1" data-zipcode="state" data-zipcode-group="1">
+            <option>carregando...</option>
+        </select>
+        <select data-list="cities" data-list-group="1" data-zipcode="city" data-zipcode-group="1">
+            <option>carregando...</option>
+        </select>
+    </div>
+
+    <hr />
+
+    <h3>validaform</h3>
+
+    <div data-validate="form">
+        <label>
+            Required
+            <input type="text" value="teste1" data-validate="required" />
+        </label>
+        <br />
+        <label>
+            Full Name
+            <input type="text" value="leonardo silva" data-validate="fullname" data-validate-optional="true" />
+        </label>
+        <br />
+        <label>
+            Email
+            <input type="text" value="email@email.com.br" data-validate="email" data-validate-optional="true" />
+        </label>
+        <br />
+        <label>
+            CPF
+            <input type="text" value="738.379.475-30" data-validate="cpf" />
+        </label>
+        <br />
+        <label>
+            CNPJ
+            <input type="text" value="84.884.611/0001-30" data-validate="cnpj" />
+        </label>
+        <br />
+        <label>
+            URL
+            <input type="text" value="http://www.gloonyc.com/food" data-validate="url" />
+        </label>
+        <br />
+        <label>
+            Input File
+            <input type="file" value="" data-validate="file" data-validate-size="1024" data-validate-ext="jpg"  data-validate-optional="true" />
+        </label>
+        <br />
+        <label>
+            Compare
+            <input type="password" value="" data-validate="compare" data-validate-group="1" /><br />
+            <input type="password" value="" data-validate-group="1" /><br />
+            <input type="password" value="" data-validate-group="1" />
+        </label>
+        <br />
+        <label>
+            Checkbox
+            <br />
+            <input type="checkbox" name="testeCheck" value="" data-validate="checkbox" data-validate-qtd="2" />Item<br />
+            <input type="checkbox" name="testeCheck" value="" />Item<br />
+            <input type="checkbox" name="testeCheck" value="" />Item<br />
+            <input type="checkbox" name="testeCheck" value="" />Item<br />
+            <input type="checkbox" name="testeCheck" value="" />Item
+        </label>
+
+
+        <hr />
+
+        <input type="submit" value="OK" />
+        <button type="submit">OK</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $('h3').on('click', function () {
+            $(this).next().toggle();
+        });
+    </script>
+    <script src="cfw.js"></script>
+    <script>
+        cfw.cmodal.init();
+
+        /**/
+
+        cfw.matchheight.init({ element: '.mh1' });
+        cfw.matchheight.init({ element: '.mh' });
+
+        /**/
+
+        cfw.citystate.init({
+            filterStates: ['!SC', '!Rs'],
+            selectState: '#estado',
+            selectCity: '#cidade'
+        });
+
+        cfw.citystate.init({
+            filterStates: ['SC'],
+            selectState: '#estado1',
+            selectCity: '#cidade1',
+            initState: 'Santa CaTaRiNa'
+        });
+
+        /**/
+
+        cfw.zipcode.init();
+
+        /**/
+
+        cfw.validaform.init();
+
+    </script>
+
+</body>
+
+</html>
+
+<!--cfw.form.init();
+  cfw.form.valida.init();
+  cfw.form.ajax.init();
+  cfw.form.placeholderfix.init();-->
