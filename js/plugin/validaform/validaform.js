@@ -252,6 +252,17 @@
 
             hidden: function ($el) {
                 return !!this.required($el);
+            },
+
+            radio: function ($el) {
+                var name = $el.attr('name');
+
+                if (!name) {
+                    console.warn('´radio´ precisa de um name.')
+                    return true;
+                }
+
+                return !!$('input[name="' + name + '"]:checked:visible').length;
             }
         }
 
@@ -290,6 +301,9 @@
                     },
                     hidden: {
                         false: 'Campo obrigatório'
+                    },
+                    radio: {
+                        false: 'Selecione uma opção'
                     }
                 }
 
@@ -321,18 +335,19 @@
 
                 var parentEl = $el.attr('data-validate-target') ? $el.closest($el.attr('data-validate-target')) : $el.parent();
 
-                parentEl
-                  .addClass('cfw-input-invalid')
-                  .attr('data-tooltip', msg);
+                parentEl.addClass('cfw-input-invalid')
+
+                if (this.options.tooltip)
+                    parentEl.attr('data-cfw-tooltip', msg);
             }
 
             if (situ == true)
-                this.resetWarn();
+                this.resetWarn($el);
 
         },
 
-        cfwValidaForm.prototype.resetWarn = function () {
-            $(this.options.form).find('.cfw-input-invalid').removeClass('cfw-input-invalid').removeAttr('data-tooltip');
+        cfwValidaForm.prototype.resetWarn = function ($el) {
+            $el.closest(this.options.form).find('.cfw-input-invalid').removeClass('cfw-input-invalid').removeAttr('data-cfw-tooltip');
         }
 
         cfwValidaForm.prototype.dealActions = function () {
@@ -343,14 +358,14 @@
             $form.on('keypress', 'input, select, textarea', function (e) {
                 if (e.keyCode == 13) {
                     e.preventDefault();
-                    $form.find('[type=submit]:lt(1)').trigger('click');
+                    $(this).closest(that.options.form).find('[type=submit]:lt(1)').trigger('click');
                 }
                 else
-                    that.resetWarn();
+                    that.resetWarn($(this));
             });
 
             $form.on('change paste', 'input, select, textarea', function (e) {
-                that.resetWarn();
+                that.resetWarn($(this));
             });
         }
 

@@ -8,7 +8,7 @@
         var config = {
             form: '[data-validate="form"]',
             tooltip: true,
-            style: false
+            styles: true
         };
 
         var options = $.extend(config, options);
@@ -20,6 +20,13 @@
                 var valida = new cfwValidaForm();
                     valida.options = options;
                     valida.init();
+
+                    console.info(valida.options);
+
+                if(valida.options.styles)
+                    cfw.getJS('/js/plugin/loadcss/loadcss.js', function () {
+                        loadCSS('/js/plugin/validaform/validaform.css');
+                    });
 
             }
         }, 100);

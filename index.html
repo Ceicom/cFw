@@ -3,52 +3,6 @@
 <head>
     <title></title>
     <meta charset="utf-8" />
-
-    <style>
-        .cfw-input-invalid input,
-        .cfw-input-invalid select,
-        .cfw-input-invalid textarea {
-            background: #f5aca6;
-            border: 1px solid #b01717;
-        }
-
-        /* Tooltip Styles */
-        [data-tooltip] {
-            position: relative;
-            z-index: 2;
-        }
-
-            [data-tooltip]:before {
-                position: absolute;
-                top: calc(100% + 10px);
-                left: 50%;
-                margin-left: -100px;
-                padding: 7px;
-                width: 200px;
-                border-radius: 3px;
-                background-color: #b01717;
-                color: #fff;
-                content: attr(data-tooltip);
-                text-align: center;
-                font-size: 14px;
-                line-height: 1.2;
-            }
-
-            [data-tooltip]:after {
-                position: absolute;
-                top: calc(100% + 5px);
-                left: 50%;
-                margin-left: -5px;
-                width: 0;
-                border-bottom: 5px solid #b01717;
-                border-right: 5px solid transparent;
-                border-left: 5px solid transparent;
-                content: " ";
-                font-size: 0;
-                line-height: 0;
-            }
-    </style>
-
 </head>
 <body>
     <hr />
@@ -218,6 +172,13 @@
             <button id="removebalue" type="button">remove value at hidden field</button>
             <input type="hidden" id="hiddenfield" data-validate="hidden" data-validate-txt="Clique no botão para colocar valor... ou tirar..." value="123" />
         </div>
+        <div>
+            <label>Radio</label>
+            <input type="radio" value="1" name="teste123"  data-validate />Item 1<br />
+            <input type="radio" value="2" name="teste123" />Item 2<br />
+            <input type="radio" value="3" name="teste123" />Item 3<br />
+            <input type="radio" value="4" name="teste123" />Item 4
+        </div>
 
         <hr />
 
@@ -226,8 +187,10 @@
     </form>
 
     <form data-validate="form">
-        <input type="text" name="teste" value="" data-validate="required" />
-        <button type="submit">OK</button>
+        <div>
+            <input type="text" name="teste" value="" data-validate="required" />
+            <button type="submit">OK</button>
+        </div>
     </form>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -275,7 +238,10 @@
 
         /**/
 
-        cfw.validaform.init();
+        cfw.validaform.init({
+            //tooltip: false,
+            //styles: true
+        });
 
     </script>
 

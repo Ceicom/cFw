@@ -1,0 +1,38 @@
+﻿/* Inputs Error */
+.cfw-input-invalid input,
+.cfw-input-invalid select,
+.cfw-input-invalid textarea {
+    background: #f5aca6;
+    border: 1px solid #b01717;
+}
+
+/* Tooltip Styles */
+[data-cfw-tooltip] {
+    position: relative;
+    z-index: 2;
+}
+
+    [data-cfw-tooltip]:before {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: calc(50% - 100px);
+        padding: 7px;
+        width: 200px;
+        border-radius: 3px;
+        background: #b01717;
+        color: #fff;
+        content: attr(data-cfw-tooltip);
+        text-align: center;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    [data-cfw-tooltip]:after {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: calc(50% - 5px);
+        border-bottom: 5px solid #b01717;
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+        content: '';
+    }

@@ -1,4 +1,6 @@
-﻿(function (w) {
+﻿var z = 0;
+
+(function (w) {
     "use strict";
 
     console = window.console || { log: function () { } }                                     // console.log fix ie podre véio
@@ -13,14 +15,28 @@
 
     // get js
     cfwCore.prototype.getJS = function (url, param) {
-        cfw.loadedJS[url] = 'loading';
 
         var callback = typeof (param) === 'function' ? param : null;
 
-        $.getScript(url, function () {
-            cfw.loadedJS[url] = 'loaded';
-            if (callback) callback();
-        });
+        if (cfw.loadedJS.hasOwnProperty(url))
+            var si = setInterval(function () {
+                if (cfw.loadedJS[url] == 'loaded') {
+                    clearInterval(si);
+                    if (callback) callback();
+                }
+            }, 100);
+
+
+        if (!cfw.loadedJS.hasOwnProperty(url)) {
+            cfw.loadedJS[url] = 'loading';
+
+            $.getScript(url, function () {
+                cfw.loadedJS[url] = 'loaded';
+                if (callback) callback();
+            });
+        }
+
+
     }
 
     // plugins
