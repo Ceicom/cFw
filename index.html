@@ -1,9 +1,55 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <title></title>
-        <meta charset="utf-8" />
-    </head>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+
+    <style>
+        .cfw-input-invalid input,
+        .cfw-input-invalid select,
+        .cfw-input-invalid textarea {
+            background: #f5aca6;
+            border: 1px solid #b01717;
+        }
+
+        /* Tooltip Styles */
+        [data-tooltip] {
+            position: relative;
+            z-index: 2;
+        }
+
+            [data-tooltip]:before {
+                position: absolute;
+                top: calc(100% + 10px);
+                left: 50%;
+                margin-left: -100px;
+                padding: 7px;
+                width: 200px;
+                border-radius: 3px;
+                background-color: #b01717;
+                color: #fff;
+                content: attr(data-tooltip);
+                text-align: center;
+                font-size: 14px;
+                line-height: 1.2;
+            }
+
+            [data-tooltip]:after {
+                position: absolute;
+                top: calc(100% + 5px);
+                left: 50%;
+                margin-left: -5px;
+                width: 0;
+                border-bottom: 5px solid #b01717;
+                border-right: 5px solid transparent;
+                border-left: 5px solid transparent;
+                content: " ";
+                font-size: 0;
+                line-height: 0;
+            }
+    </style>
+
+</head>
 <body>
     <hr />
 
@@ -98,71 +144,106 @@
 
     <h3>validaform</h3>
 
-    <div data-validate="form">
-        <label>
-            Required
-            <input type="text" value="teste1" data-validate="required" />
-        </label>
-        <br />
-        <label>
-            Full Name
-            <input type="text" value="leonardo silva" data-validate="fullname" data-validate-optional="true" />
-        </label>
-        <br />
-        <label>
-            Email
-            <input type="text" value="email@email.com.br" data-validate="email" data-validate-optional="true" />
-        </label>
-        <br />
-        <label>
-            CPF
-            <input type="text" value="738.379.475-30" data-validate="cpf" />
-        </label>
-        <br />
-        <label>
-            CNPJ
-            <input type="text" value="84.884.611/0001-30" data-validate="cnpj" />
-        </label>
-        <br />
-        <label>
-            URL
-            <input type="text" value="http://www.gloonyc.com/food" data-validate="url" />
-        </label>
-        <br />
-        <label>
-            Input File
-            <input type="file" value="" data-validate="file" data-validate-size="1024" data-validate-ext="jpg"  data-validate-optional="true" />
-        </label>
-        <br />
-        <label>
-            Compare
-            <input type="password" value="" data-validate="compare" data-validate-group="1" /><br />
-            <input type="password" value="" data-validate-group="1" /><br />
-            <input type="password" value="" data-validate-group="1" />
-        </label>
-        <br />
-        <label>
-            Checkbox
-            <br />
-            <input type="checkbox" name="testeCheck" value="" data-validate="checkbox" data-validate-qtd="2" />Item<br />
-            <input type="checkbox" name="testeCheck" value="" />Item<br />
-            <input type="checkbox" name="testeCheck" value="" />Item<br />
-            <input type="checkbox" name="testeCheck" value="" />Item<br />
-            <input type="checkbox" name="testeCheck" value="" />Item
-        </label>
-
+    <form data-validate="form" style="padding:0 20px;">
+        <div>
+            <label>
+                Required
+                <input type="text" value="obrigatorio" data-validate="required" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Full Name
+                <input type="text" value="obrigatorio obrigatorio" data-validate="fullname" />
+            </label>
+        </div>
+        <div hidden>
+            <label>
+                Full Name
+                <input type="text" value="" data-validate="fullname" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Email
+                <input type="email" value="obrigatorio@email.com.br" data-validate />
+            </label>
+        </div>
+        <div>
+            <label>
+                CPF
+                <input type="text" value="04296863908" data-validate="cpf" />
+            </label>
+        </div>
+        <div>
+            <label>
+                CNPJ
+                <input type="text" value="89171274000157" data-validate="cnpj" />
+            </label>
+        </div>
+        <div>
+            <label>
+                URL
+                <input type="url" value="http://www.gloonyc.com/food" data-validate data-validate-optional="true" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Input File
+                <input type="file" value="" data-validate data-validate-size="10240" data-validate-ext="jpg,rar,zip" data-validate-optional="true" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Compare
+                <input type="password" value="" data-validate="compare" data-validate-group="1" data-validate-optional="true" /><br />
+                <input type="password" value="" data-validate-group="1" /><br />
+                <input type="password" value="" data-validate-group="1" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Checkbox
+                <br />
+                <input type="checkbox" name="testeCheck" value="" data-validate="checkbox" data-validate-optional="true" data-validate-qtd="2,2" data-validate-target="div" />Item<br />
+                <input type="checkbox" name="testeCheck" value="" />Item<br />
+                <input type="checkbox" name="testeCheck" value="" />Item<br />
+                <input type="checkbox" name="testeCheck" value="" />Item<br />
+                <input type="checkbox" name="testeCheck" value="" />Item
+            </label>
+        </div>
+        <div>
+            <label>Hidden Value</label><br />
+            <button id="putbalue" type="button">put value at hidden field</button><br />
+            <button id="removebalue" type="button">remove value at hidden field</button>
+            <input type="hidden" id="hiddenfield" data-validate="hidden" data-validate-txt="Clique no botão para colocar valor... ou tirar..." value="123" />
+        </div>
 
         <hr />
 
         <input type="submit" value="OK" />
         <button type="submit">OK</button>
-    </div>
+    </form>
+
+    <form data-validate="form">
+        <input type="text" name="teste" value="" data-validate="required" />
+        <button type="submit">OK</button>
+    </form>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
         $('h3').on('click', function () {
             $(this).next().toggle();
         });
+
+        $('#putbalue').on('click', function () {
+            $('#hiddenfield').val('blz agora tem valor');
+        });
+
+        $('#removebalue').on('click', function () {
+            $('#hiddenfield').val('');
+        });
+
     </script>
     <script src="cfw.js"></script>
     <script>
@@ -201,7 +282,6 @@
 </body>
 
 </html>
-
 <!--cfw.form.init();
   cfw.form.valida.init();
   cfw.form.ajax.init();

@@ -17,16 +17,15 @@
             if (cfw.loadedJS[plugin] == 'loaded') {
                 clearInterval(si);
 
-                var x = new cfwValidaForm();
-                    x.options = options;
-                    x.init();
+                var valida = new cfwValidaForm();
+                    valida.options = options;
+                    valida.init();
 
             }
         }, 100);
     }
 
-    // eventos cidade/estado
-    //$(document).on('cfw_cidades_loaded', function (e, $el) {});
-    //$(document).on('cfw_estados_loaded', function (e, $el) {});
+    // eventos validaform
+    //$(document).on('cfw_validaform_error', function (e, form, type, $el, ret) {});
 
 })();
