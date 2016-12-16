@@ -98,100 +98,113 @@
 
     <h3>validaform</h3>
 
-    <form data-validate="form" style="padding:0 20px;">
-        <div>
-            <label>
-                Required
-                <input type="text" value="obrigatorio" data-validate="required" />
-            </label>
-        </div>
-        <div>
-            <label>
-                Full Name
-                <input type="text" value="obrigatorio obrigatorio" data-validate="fullname" />
-            </label>
-        </div>
-        <div hidden>
-            <label>
-                Full Name
-                <input type="text" value="" data-validate="fullname" />
-            </label>
-        </div>
-        <div>
-            <label>
-                Email
-                <input type="email" value="obrigatorio@email.com.br" data-validate />
-            </label>
-        </div>
-        <div>
-            <label>
-                CPF
-                <input type="text" value="04296863908" data-validate="cpf" />
-            </label>
-        </div>
-        <div>
-            <label>
-                CNPJ
-                <input type="text" value="89171274000157" data-validate="cnpj" />
-            </label>
-        </div>
-        <div>
-            <label>
-                URL
-                <input type="url" value="http://www.gloonyc.com/food" data-validate data-validate-optional="true" />
-            </label>
-        </div>
-        <div>
-            <label>
-                Input File
-                <input type="file" value="" data-validate data-validate-size="10240" data-validate-ext="jpg,rar,zip" data-validate-optional="true" />
-            </label>
-        </div>
-        <div>
-            <label>
-                Compare
-                <input type="password" value="" data-validate="compare" data-validate-group="1" data-validate-optional="true" /><br />
-                <input type="password" value="" data-validate-group="1" /><br />
-                <input type="password" value="" data-validate-group="1" />
-            </label>
-        </div>
-        <div>
-            <label>
-                Checkbox
-                <br />
-                <input type="checkbox" name="testeCheck" value="" data-validate="checkbox" data-validate-optional="true" data-validate-qtd="2,2" data-validate-target="div" />Item<br />
-                <input type="checkbox" name="testeCheck" value="" />Item<br />
-                <input type="checkbox" name="testeCheck" value="" />Item<br />
-                <input type="checkbox" name="testeCheck" value="" />Item<br />
-                <input type="checkbox" name="testeCheck" value="" />Item
-            </label>
-        </div>
-        <div>
-            <label>Hidden Value</label><br />
-            <button id="putbalue" type="button">put value at hidden field</button><br />
-            <button id="removebalue" type="button">remove value at hidden field</button>
-            <input type="hidden" id="hiddenfield" data-validate="hidden" data-validate-txt="Clique no botão para colocar valor... ou tirar..." value="123" />
-        </div>
-        <div>
-            <label>Radio</label>
-            <input type="radio" value="1" name="teste123"  data-validate />Item 1<br />
-            <input type="radio" value="2" name="teste123" />Item 2<br />
-            <input type="radio" value="3" name="teste123" />Item 3<br />
-            <input type="radio" value="4" name="teste123" />Item 4
-        </div>
+    <div>
+        <form data-validate="form" style="padding:0 20px;">
+            <div>
+                <label>
+                    Required
+                    <input type="text" value="obrigatorio" data-validate="required" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Full Name
+                    <input type="text" value="obrigatorio obrigatorio" data-validate="fullname" />
+                </label>
+            </div>
+            <div hidden>
+                <label>
+                    Full Name
+                    <input type="text" value="" data-validate="fullname" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Email
+                    <input type="email" value="obrigatorio@email.com.br" data-validate />
+                </label>
+            </div>
+            <div>
+                <label>
+                    CPF
+                    <input type="text" value="04296863908" data-validate="cpf" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    CNPJ
+                    <input type="text" value="89171274000157" data-validate="cnpj" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    URL
+                    <input type="url" value="http://www.gloonyc.com/food" data-validate data-validate-optional="true" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Input File
+                    <input type="file" value="" data-validate data-validate-size="10240" data-validate-ext="jpg,rar,zip" data-validate-optional="true" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Compare
+                    <input type="password" value="" data-validate="compare" data-validate-group="1" data-validate-optional="true" /><br />
+                    <input type="password" value="" data-validate-group="1" /><br />
+                    <input type="password" value="" data-validate-group="1" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Checkbox
+                    <br />
+                    <input type="checkbox" name="testeCheck" value="" data-validate="checkbox" data-validate-optional="true" data-validate-qtd="2,2" data-validate-target="div" />Item<br />
+                    <input type="checkbox" name="testeCheck" value="" />Item<br />
+                    <input type="checkbox" name="testeCheck" value="" />Item<br />
+                    <input type="checkbox" name="testeCheck" value="" />Item<br />
+                    <input type="checkbox" name="testeCheck" value="" />Item
+                </label>
+            </div>
+            <div>
+                <label>Hidden Value</label><br />
+                <button id="putbalue" type="button">put value at hidden field</button><br />
+                <button id="removebalue" type="button">remove value at hidden field</button>
+                <input type="hidden" id="hiddenfield" data-validate="hidden" data-validate-txt="Clique no botão para colocar valor... ou tirar..." value="123" />
+            </div>
+            <div>
+                <label>Radio</label>
+                <input type="radio" value="1" name="teste123" data-validate />Item 1<br />
+                <input type="radio" value="2" name="teste123" />Item 2<br />
+                <input type="radio" value="3" name="teste123" />Item 3<br />
+                <input type="radio" value="4" name="teste123" />Item 4
+            </div>
 
-        <hr />
+            <hr />
 
-        <input type="submit" value="OK" />
-        <button type="submit">OK</button>
-    </form>
-
-    <form data-validate="form">
-        <div>
-            <input type="text" name="teste" value="" data-validate="required" />
+            <input type="submit" value="OK" />
             <button type="submit">OK</button>
-        </div>
-    </form>
+        </form>
+
+        <form data-validate="form">
+            <div>
+                <input type="text" name="teste" value="" data-validate="required" />
+                <button type="submit">OK</button>
+            </div>
+        </form>
+    </div>
+
+    <hr />
+
+    <h3>mask</h3>
+    <div hidden>
+        <input id="abc" type="text" data-mask="date" value="10102012" placeholder="00/00/0000" /><br />
+        <input type="text" data-mask="zip" value="85604000" placeholder="00000-000" /><br />
+        <input type="text" data-mask="money" placeholder="0.000,00" /><br />
+        <input class="cnpj" type="text" placeholder="00.000.000/0000-00" />
+        <input class="cpf" type="text" placeholder="000.000.000-00" />
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
@@ -238,10 +251,43 @@
 
         /**/
 
-        cfw.validaform.init({
+        cfw.validateForm.init({
             //tooltip: false,
             //styles: true
         });
+
+        /**/
+
+        cfw.mask.init({
+            element: $('.cnpj'),
+            mask: '00.000.000/0000-00',
+            options:{
+                reverse: true
+            }
+        });
+
+        cfw.mask.init({
+            element: $('.cpf'),
+            mask: '000.000.000-00',
+            options: {
+                reverse: true,
+                selectOnFocus: true,
+                onComplete: function (cpf) {
+                    alert('CPF Completed!:' + cpf);
+                },
+                onChange: function (cpf) {
+                    console.log('CPF changed! ', cpf);
+                },
+                onInvalid: function (val, e, f, invalid, options) {
+                    var error = invalid[0];
+                    console.log("Digit: ", error.v, " is invalid for the position: ", error.p, ". We expect something like: ", error.e);
+                }
+            }
+        });
+
+        /**/
+
+        //cfw.placeholder.init();
 
     </script>
 

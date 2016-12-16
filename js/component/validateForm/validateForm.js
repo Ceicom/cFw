@@ -1,9 +1,9 @@
 ﻿(function () {
 
-    var plugin = '/js/plugin/validaform/validaform.js';
+    var plugin = '/js/plugin/validateForm/validateForm.js';
     cfw.getJS(plugin);
 
-    cfw.validaform.start = function (options) {
+    cfw.validateForm.start = function (options) {
 
         var config = {
             form: '[data-validate="form"]',
@@ -17,22 +17,19 @@
             if (cfw.loadedJS[plugin] == 'loaded') {
                 clearInterval(si);
 
-                var valida = new cfwValidaForm();
-                    valida.options = options;
-                    valida.init();
+                var form = new cfwValidaForm();
+                    form.options = options;
+                    form.init();
 
-                    console.info(valida.options);
-
-                if(valida.options.styles)
+                if (form.options.styles)
                     cfw.getJS('/js/plugin/loadcss/loadcss.js', function () {
-                        loadCSS('/js/plugin/validaform/validaform.css');
+                        loadCSS('/js/plugin/validateForm/validateForm.css');
                     });
-
             }
         }, 100);
     }
 
     // eventos validaform
-    //$(document).on('cfw_validaform_error', function (e, form, type, $el, ret) {});
+    //$(document).on('cfw_validateForm_error', function (e, form, type, $el, ret) {});
 
 })();

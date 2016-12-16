@@ -12,13 +12,13 @@
                 var $form = $(this).closest(that.options.form);
 
                 if ($form.length) {
-                    if (!that.validaForm($form))
+                    if (that.validateForm($form) != true)
                         e.preventDefault();
                 }
             });
         }
 
-        cfwValidaForm.prototype.validaForm = function ($form) {
+        cfwValidaForm.prototype.validateForm = function ($form) {
             var r = true,
                 that = this;
 
@@ -28,13 +28,13 @@
 
                 if ($(this).is(':visible') || type == 'hidden') {
 
-                    if (that.valida.hasOwnProperty(type)) {
-                        r = that.valida[type]($(this));
+                    if (that.validate.hasOwnProperty(type)) {
+                        r = that.validate[type]($(this));
 
                         that.warnCli(type, $(this), r);
 
                         if (r != true) {
-                            $(document).trigger('cfw_validaform_error', [$form, type, $(this), r]);
+                            $(document).trigger('cfw_validateForm_error', [$form, type, $(this), r]);
                             return false;
                         }
 
@@ -42,15 +42,17 @@
                         console.warn('´'+type + '´ não é um tipo de validação existente');
 
                 } else {
-                    console.warn('element: #' + $(this).attr('id') + ';\nvalida: ' + type + ';\nhidden: true;');
+                    console.warn('elementId: #' + $(this).attr('id') + ';\nvalidate: ' + type + ';\nisHidden: true;');
                 }
 
             });
 
+            console.info(r);
+
             return r;
         }
 
-        cfwValidaForm.prototype.valida = {
+        cfwValidaForm.prototype.validate = {
             //
             clearStr: function (val) {
                 return val.replace(/[^\w]/gi, '');
@@ -173,18 +175,14 @@
                     var files = $el[0].files;
 
                     if (files.length > 0) {
-                        var sizeLimit = $el.attr('data-validate-size');
-                        var typeLimit = $el.attr('data-validate-ext');
-
-                        if (!sizeLimit && !typeLimit) {
-                            console.warn('´file´ precisa de mais um parametro para validação (data-validate-size ou data-validate-ext)');
-                            return true;
-                        }
-
-                        if (+sizeLimit < Math.ceil(files[0].size / 1024))
+                        // tamanho
+                        if (+$el.attr('data-validate-size') < Math.ceil(files[0].size / 1024))
                             return 'file_size';
 
-                        if (typeLimit.indexOf(files[0].name.substr(-3)) < 0)
+                        // extensão
+                        var typeFile = files[0].name.substr(-3);
+                        var typeLimit = $el.attr('data-validate-ext') || typeFile;
+                        if (typeLimit.indexOf(typeFile) < 0)
                             return 'file_ext';
 
                         return true;
@@ -208,11 +206,11 @@
                 }
 
                 if(group){
-                    var itens = $('[data-validate-group]:visible'),
+                    var items = $('[data-validate-group]:visible'),
                         tmpValue,
                         r = true;
 
-                    $.each(itens, function () {
+                    $.each(items, function () {
                         if (!r) return false;
 
                         var val = that.clearStr($(this).val());
