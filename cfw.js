@@ -6,7 +6,7 @@
     console = window.console || { log: function () { } }                                     // console.log fix ie podre véio
     if (typeof jQuery === "undefined") { throw new Error('cfw é dependente do JQuery...'); } // verifica inicialização do jquery
 
-    var plugins     = ['cmodal', 'matchheight', 'citystate', 'zipcode', 'validaform','validateForm', 'mask'];
+    var plugins     = ['cmodal', 'matchheight', 'citystate', 'zipcode', 'validateform', 'mask', 'form'];
     var cfwCore     = function () { };      // core
     var cfw         = new cfwCore();        // exported
 

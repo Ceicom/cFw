@@ -1,9 +1,9 @@
 ﻿(function () {
 
-    var plugin = '/js/plugin/validateForm/validateForm.js';
+    var plugin = '/js/plugin/validateform/validateform.js';
     cfw.getJS(plugin);
 
-    cfw.validateForm.start = function (options) {
+    cfw.validateform.start = function (options) {
 
         var config = {
             form: '[data-validate="form"]',
@@ -23,7 +23,7 @@
 
                 if (form.options.styles)
                     cfw.getJS('/js/plugin/loadcss/loadcss.js', function () {
-                        loadCSS('/js/plugin/validateForm/validateForm.css');
+                        loadCSS('/js/plugin/validateform/validateform.css');
                     });
             }
         }, 100);
