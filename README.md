@@ -1,10 +1,12 @@
 # cFw
 Some codes that will speed up our front-end development;
 
-
 ###Components
 - cmodal
+- fallback console
 - matchheight
-- citystate
-- zipcode
-- validaform
+- form
+    - citystate
+    - mask
+    - validateform
+    - zipcode
