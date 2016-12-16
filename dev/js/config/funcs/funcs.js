@@ -1,7 +1,7 @@
 ﻿(function () {
 
     cfw.funcs.start = function () {
-        cfw.getJS('/prod/js/plugin/funcs/funcs.min.js');
+        cfw.getJS(cfw.pathFile.plugin + 'funcs/funcs.min.js');
     }
 
 })();

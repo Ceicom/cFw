@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var plugin = '/prod/js/plugin/validateform/validateform.min.js';
+    var plugin = cfw.pathFile.plugin + 'validateform/validateform.min.js';
     cfw.getJS(plugin);
 
     cfw.validateform.start = function (options) {
@@ -22,8 +22,8 @@
                     form.init();
 
                 if (form.options.styles)
-                    cfw.getJS('/prod/js/plugin/loadcss/loadcss.min.js', function () {
-                        loadCSS('/prod/js/plugin/validateform/validateform.min.css');
+                    cfw.getJS(cfw.pathFile.plugin + 'loadcss/loadcss.min.js', function () {
+                        loadCSS(cfw.pathFile.plugin + 'validateform/validateform.min.css');
                     });
             }
         }, 100);

@@ -36,32 +36,63 @@
 
         /* CSSMIN MINIFICA, COMBINA CSS */
         cssmin: {
-            // minifica os css´s dos plugins
+            // minifica os css´s da config
             cssvendor: {
                 files: [{
                     expand: true,
-                    cwd: 'dev/',
+                    cwd: 'dev/js/config/',
                     src: ['**/*.css', '!**/*.min.css'],
-                    dest: 'prod/',
+                    dest: 'prod/cfw/',
                     ext: '.min.css',
                     extDot: 'last'
                 }]
             },
+
+            // minifica os css´s dos plugins
+            cssvendor: {
+                files: [{
+                    expand: true,
+                    cwd: 'dev/js/plugin/',
+                    src: ['**/*.css', '!**/*.min.css'],
+                    dest: 'prod/vendor/',
+                    ext: '.min.css',
+                    extDot: 'last'
+                }]
+            }
         },
 
         /* UGLIFY MINIFICA */
         uglify: {
             options: {
-                sourceMap: false,    // gera sitemaps
+                sourceMap: false
             },
 
-            // arquivos de plugins, minifica eles
+            // config (main file)
+            jsmain: {
+                files: {
+                    'prod/cfw/cfw.min.js': ['dev/js/cfw.js']
+                }
+            },
+
+            // arquivos de configurações
+            jsconfig: {
+                files: [{
+                    expand: true,
+                    cwd: 'dev/js/config',
+                    src: ['**/*.js', '!**/*.min.js'],
+                    dest: 'prod/cfw/',
+                    ext: '.min.js',
+                    extDot: 'last'
+                }]
+            },
+
+            // arquivos de plugins
             jsvendor: {
                 files: [{
                     expand: true,
-                    cwd: 'dev/',
+                    cwd: 'dev/js/plugin',
                     src: ['**/*.js', '!**/*.min.js'],
-                    dest: 'prod/',
+                    dest: 'prod/vendor/',
                     ext: '.min.js',
                     extDot: 'last'
                 }]
@@ -93,12 +124,24 @@
             options: {
                 spawn: false,
             },
+            cssconfig: {
+                files: ['dev/js/config/**/*.css'],
+                tasks: ['postcss:cssconfig', 'cssmin:cssconfig']
+            },
             cssvendor: {
-                files: ['dev/**/*.css'],
+                files: ['dev/js/plugin/**/*.css'],
                 tasks: ['postcss:cssvendor', 'cssmin:cssvendor']
             },
+            mainjs: {
+                files: ['dev/js/cfw.js'],
+                tasks: ['uglify:jsmain']
+            },
+            jsconfig: {
+                files: ['dev/js/config/**/*.js'],
+                tasks: ['uglify:jsconfig']
+            },
             jsvendor: {
-                files: ['dev/**/*.js'],
+                files: ['dev/js/plugin/**/*.js'],
                 tasks: ['uglify:jsvendor']
             },
             jsonvendor: {

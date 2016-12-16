@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var plugin = '/prod/js/plugin/mask/mask.min.js';
+    var plugin = cfw.pathFile.plugin + 'mask/mask.min.js';
     cfw.getJS(plugin);
 
     cfw.mask.initiated = false;

@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var plugin = '/prod/js/plugin/citystate/citystate.min.js';
+    var plugin = cfw.pathFile.plugin + 'citystate/citystate.min.js';
     cfw.getJS(plugin);
 
     cfw.citystate.start = function (options) {

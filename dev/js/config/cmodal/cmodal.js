@@ -2,10 +2,10 @@
 
     cfw.cmodal.start = function () {
 
-        cfw.getJS('/prod/js/plugin/cmodal/cmodal.min.js');
+        cfw.getJS(cfw.pathFile.plugin + 'cmodal/cmodal.min.js');
 
-        cfw.getJS('/prod/js/plugin/loadcss/loadcss.min.js', function () {
-            loadCSS('/prod/js/plugin/cmodal/cmodal.min.css');
+        cfw.getJS(cfw.pathFile.plugin + 'loadcss/loadcss.min.js', function () {
+            loadCSS(cfw.pathFile.plugin + 'cmodal/cmodal.min.css');
         });
     }
 

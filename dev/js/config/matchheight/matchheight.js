@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var plugin = '/prod/js/plugin/matchheight/matchheight.min.js';
+    var plugin = cfw.pathFile.plugin + 'matchheight/matchheight.min.js';
     cfw.getJS(plugin);
 
     cfw.matchheight.start = function (options) {

@@ -1,6 +1,4 @@
-﻿var z = 0;
-
-(function (w) {
+﻿(function (w) {
     "use strict";
 
     console = window.console || { log: function () { } }                                     // console.log fix ie podre véio
@@ -15,13 +13,22 @@
                         'mask',             // mascára inputs           [http://igorescobar.github.io/jQuery-Mask-Plugin/]
                         'form',             // atalho modulos forms     [ceicom]
                         'funcs'             // funções úteis            [ceicom]
-                      ];
+    ];
 
     var cfwCore     = function () { };      // core
     var cfw         = new cfwCore();        // exported
 
     // js carregados
     cfw.loadedJS = {};
+
+    // caminho
+    cfw.pathFile = {
+        config: '/prod/cfw/',
+        plugin: '/prod/vendor/'
+
+        //config: '//src.inf.br/cfw/',
+        //plugin: '//src.inf.br/vendor/'
+    }
 
     // get js
     cfwCore.prototype.getJS = function (url, param) {
@@ -54,7 +61,7 @@
 
         cfwCore.prototype[module] = {
             init: function (options) {
-                var url = '/prod/js/config/' + module + '/' + module + '.min.js';
+                var url = cfw.pathFile.config + module + '/' + module + '.min.js';
 
                 if (cfw.loadedJS.hasOwnProperty(url))
                     var si = setInterval(function () {
