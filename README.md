@@ -5,6 +5,7 @@ Some codes that will speed up our front-end development;
 - cmodal
 - fallback console
 - matchheight
+- funcs
 - form
     - citystate
     - mask
