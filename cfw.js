@@ -6,7 +6,17 @@
     console = window.console || { log: function () { } }                                     // console.log fix ie podre véio
     if (typeof jQuery === "undefined") { throw new Error('cfw é dependente do JQuery...'); } // verifica inicialização do jquery
 
-    var plugins     = ['cmodal', 'matchheight', 'citystate', 'zipcode', 'validateform', 'mask', 'form'];
+    var plugins     = [
+                        'cmodal',           // modal                    [ceicom]
+                        'matchheight',      // match height             [http://brm.io/jquery-match-height/]
+                        'citystate',        // lista cidade estado      [ceicom]
+                        'zipcode',          // completa end pelo cep    [ceicom]
+                        'validateform',     // validação formulário     [ceicom]
+                        'mask',             // mascára inputs           [http://igorescobar.github.io/jQuery-Mask-Plugin/]
+                        'form',             // atalho modulos forms     [ceicom]
+                        'funcs'             // funções úteis            [ceicom]
+                      ];
+
     var cfwCore     = function () { };      // core
     var cfw         = new cfwCore();        // exported
 
