@@ -6,6 +6,11 @@ Some codes that will speed up our front-end development;
 - fallback console
 - matchheight
 - funcs
+    - wSize
+    - getUrlParameter
+    - dealData
+    - clearString
+    - capitalizeStr
 - form
     - citystate
     - mask
