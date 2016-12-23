@@ -5,14 +5,18 @@
     if (typeof jQuery === "undefined") { throw new Error('cfw é dependente do JQuery...'); } // verifica inicialização do jquery
 
     var plugins     = [
-                        'cmodal',           // modal                    [ceicom]
-                        'matchheight',      // match height             [http://brm.io/jquery-match-height/]
                         'citystate',        // lista cidade estado      [ceicom]
-                        'zipcode',          // completa end pelo cep    [ceicom]
-                        'validateform',     // validação formulário     [ceicom]
-                        'mask',             // mascára inputs           [http://igorescobar.github.io/jQuery-Mask-Plugin/]
+                        'cmodal',           // modal                    [ceicom]
                         'form',             // atalho modulos forms     [ceicom]
-                        'funcs'             // funções úteis            [ceicom]
+                        'funcs',            // funções úteis            [ceicom]
+                        'loadcss',          // assyncrono loader css    [https://github.com/filamentgroup/loadCSS]
+                        'mask',             // mascára inputs           [http://igorescobar.github.io/jQuery-Mask-Plugin/]
+                        'matchheight',      // match height             [http://brm.io/jquery-match-height/]
+                        'submitform',       // form via ajax            [ceicom]
+                        'sweetalert',       // sweet alert :P           [http://t4t5.github.io/sweetalert/]
+                        'validateform',     // validação formulário     [ceicom]
+                        'validateformdata', // validação formData       [ceicom]
+                        'zipcode',          // completa end pelo cep    [ceicom]
     ];
 
     var cfwCore     = function () { };      // core
@@ -23,11 +27,13 @@
 
     // caminho
     cfw.pathFile = {
-        config: '/prod/cfw/',
-        plugin: '/prod/vendor/'
+        //config: '/prod/cfw/',
+        //plugin: '/prod/vendor/',
+        //json: '/prod/json/citystate/'
 
-        //config: '//src.inf.br/cfw/',
-        //plugin: '//src.inf.br/vendor/'
+        config: '//src.inf.br/cfw/',
+        plugin: '//src.inf.br/vendor/',
+        json: '//src.inf.br/json/citystate/'
     }
 
     // get js

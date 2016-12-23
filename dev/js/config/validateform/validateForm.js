@@ -22,9 +22,8 @@
                     form.init();
 
                 if (form.options.styles)
-                    cfw.getJS(cfw.pathFile.plugin + 'loadcss/loadcss.min.js', function () {
-                        loadCSS(cfw.pathFile.plugin + 'validateform/validateform.min.css');
-                    });
+                    cfw.loadcss.init(cfw.pathFile.plugin + 'validateform/validateform.min.css');
+
             }
         }, 100);
     }

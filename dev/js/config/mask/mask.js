@@ -8,7 +8,8 @@
     cfw.mask.start = function (options) {
 
         var config = {
-            element: null
+            element: null,
+            mask: null
         };
 
         var options = $.extend(config, options);
@@ -19,7 +20,10 @@
             var si = setInterval(function () {
                 if (cfw.loadedJS[plugin] == 'loaded') {
                     clearInterval(si);
-                    $(options.element).mask(options.mask, options.options);
+
+                    if (options.mask)
+                        $(options.element).mask(options.mask, options.options);
+
                 }
             }, 100);
         }

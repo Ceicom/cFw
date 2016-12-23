@@ -7,7 +7,7 @@
         parent: 'body'
     }
 
-    // 
+    //
     if (cfw.cmodal.options) { $.extend(config, cfw.cmodal.options); }
 
     /* exported */

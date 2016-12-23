@@ -6,7 +6,9 @@
             citystate: true,
             zipcode: true,
             validateform: true,
-            mask: true
+            mask: true,
+            validateformdata: true,
+            submitform: true
         };
 
         var options = $.extend(config, options);

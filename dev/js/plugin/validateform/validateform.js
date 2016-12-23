@@ -11,9 +11,16 @@
 
                 var $form = $(this).closest(that.options.form);
 
+                if ($('body').attr('data-submitform')) $('body').removeAttr('data-submitform');
+
                 if ($form.length) {
-                    if (that.validateForm($form) != true)
+                    var retForm = that.validateForm($form);
+
+                    if (retForm != true)
                         e.preventDefault();
+
+                    if (retForm == true && $form.attr('data-submitform'))
+                        $('body').attr('data-submitform', $form.attr('data-submitform'));
                 }
             });
         }
@@ -42,7 +49,7 @@
                         console.warn('´'+type + '´ não é um tipo de validação existente');
 
                 } else {
-                    console.warn('elementId: #' + $(this).attr('id') + ';\nvalidate: ' + type + ';\nisHidden: true;');
+                    console.warn('element: ' + ($(this).attr('id') ? '#' + $(this).attr('id') : '[name="' + $(this).attr('name') + '"]') + ';\nvalidate: ' + type + ';\nisHidden: true;');
                 }
 
             });

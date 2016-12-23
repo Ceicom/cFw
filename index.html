@@ -98,8 +98,8 @@
 
     <h3>validaform</h3>
 
-    <div hidden>
-        <form data-validate="form" style="padding:0 20px;">
+    <div>
+        <form data-validate="form" style="padding:0 20px;" hidden>
             <div>
                 <label>
                     Required
@@ -187,10 +187,10 @@
             <button type="submit">OK</button>
         </form>
 
-        <form data-validate="form">
+        <form data-validate="form" data-submitform="contato">
             <div>
                 <input type="text" name="teste" value="" data-validate="required" />
-                <button type="submit">OK</button>
+                <button type="submit" disabled>OK</button>
             </div>
         </form>
     </div>
@@ -204,6 +204,7 @@
         <input type="text" data-mask="money" placeholder="0.000,00" /><br />
         <input class="cnpj" type="text" placeholder="00.000.000/0000-00" />
         <input class="cpf" type="text" placeholder="000.000.000-00" />
+        <input type="text" class="ncnpj" />
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -259,6 +260,10 @@
         /**/
 
         cfw.mask.init({
+            element: $('.ncnpj')
+        });
+
+        cfw.mask.init({
             element: $('.cnpj'),
             mask: '00.000.000/0000-00',
             options:{
@@ -287,22 +292,41 @@
 
         /**/
 
-        //cfw.form.init({
-        //    citystate: {
-        //        filterStates: ['!SC', '!Rs'],
-        //        selectState: '#estado',
-        //        selectCity: '#cidade'
-        //    },
-        //    zipcode: true,
-        //    validateform: true,
-        //    mask: false
-        //});
+        cfw.form.init({
+            citystate: {
+                filterStates: ['!SC', '!Rs'],
+                selectState: '#estado',
+                selectCity: '#cidade'
+            },
+            zipcode: true,
+            validateform: true,
+            mask: false,
+            validateformdata: true,
+            submitform: true
+        });
 
         /**/
 
         cfw.funcs.init();
 
         /**/
+
+        cfw.validateformdata.init();
+
+        /**/
+
+        cfw.sweetalert.init(
+            //{
+            //    title: "asdasdasdasdasd!",
+            //    text: "Here's my error message!",
+            //    type: "error",
+            //    confirmButtonText: "Cool"
+            //}
+        );
+
+        /**/
+
+        //cfw.submitform.init();
 
 
     </script>

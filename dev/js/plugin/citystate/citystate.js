@@ -50,9 +50,9 @@
         var that = this;
 
         if (!localStorage.getItem('cfw_citst_' + what)) {
-            var file = what == 'states' ? '/json/states.min.json' : '/json/cities/' + what.toLowerCase() + '.min.json';
+            var file = what == 'states' ? 'states.min.json' : 'cities/' + what.toLowerCase() + '.min.json';
 
-            $.getJSON(file, function (data) {
+            $.getJSON(cfw.pathFile.json + file, function (data) {
                 localStorage.setItem('cfw_citst_' + what, JSON.stringify(data));
                 if ($el) that.dealData(what, $el, data);
                 if (typeof (cb) == 'function') cb();
