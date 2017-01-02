@@ -129,3 +129,53 @@ var capitalizeStr = function (string, eachWord) {
 
     return str;
 }
+
+/************************************************************/
+
+/*
+ * Manipula Cookies do navegador
+ *
+ * @name        cookies
+ *
+ * @prototype   create
+ * @param       {String} nome do cookie
+ * @param       {String} valor do cookie
+ * @param       {Number} dias de validade do cookie
+ * @sample      cookies.create('cookie1', 'valorcookie1', 2); // cria um cookie com o nome de cookie1, com o valor de valorcookie1 valido por 2 dias
+ *
+ * @prototype   read
+ * @param       {String} nome do cookie
+ * @return      {String} valor do cookie ou null se o cookie não existir
+ * @sample      cookies.read('cookie1'); // retorna conforme exemplo anterior o valor de valorcookie1
+ *
+ * @prototype   erase
+ * @param       {String} nome do cookie
+ * @sample      cookies.erase('cookie1'); // apaga o cookie1
+ */
+
+var cookies = {
+    create: function (name, value, days) {
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            var expires = "; expires=" + date.toGMTString();
+        }
+        else var expires = "";
+        document.cookie = name + "=" + value + expires + "; path=/";
+    },
+
+    read: function (name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    },
+
+    erase: function (name) {
+        createCookie(name, "", -1);
+    }
+}

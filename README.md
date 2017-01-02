@@ -13,11 +13,12 @@ Some codes that will speed up our front-end development;
     - validateformdata
     - zipcode
 - funcs
-    - wSize
-    - getUrlParameter
-    - dealData
-    - clearString
     - capitalizeStr
+    - clearString
+    - cookies
+    - dealData
+    - getUrlParameter
+    - wSize
 - loadcss
 - matchheight
 - sweetalert
