@@ -2,21 +2,22 @@
 Some codes that will speed up our front-end development;
 
 ###Components
+- analytics
 - cmodal
 - fallback console
-- loadcss
-- matchheight
-- sweetalert
+- form
+    - citystate
+    - mask
+    - submitform
+    - validateform
+    - validateformdata
+    - zipcode
 - funcs
     - wSize
     - getUrlParameter
     - dealData
     - clearString
     - capitalizeStr
-- form
-    - citystate
-    - mask
-    - validateform
-    - validateformdata
-    - zipcode
-    - submitform
+- loadcss
+- matchheight
+- sweetalert

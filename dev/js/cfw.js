@@ -5,6 +5,7 @@
     if (typeof jQuery === "undefined") { throw new Error('cfw é dependente do JQuery...'); } // verifica inicialização do jquery
 
     var plugins     = [
+                        'analytics',        // analytics google         [https://www.google.com/analytics/]
                         'citystate',        // lista cidade estado      [ceicom]
                         'cmodal',           // modal                    [ceicom]
                         'form',             // atalho modulos forms     [ceicom]
