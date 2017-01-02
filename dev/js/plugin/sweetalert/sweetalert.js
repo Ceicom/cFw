@@ -329,7 +329,7 @@
                 imageSize: null,
                 timer: null,
                 customClass: '',
-                html: false,
+                html: true,
                 animation: true,
                 allowEscapeKey: true,
                 inputType: 'text',

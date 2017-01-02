@@ -1,4 +1,7 @@
-﻿/*
+﻿// evento funcs carregadas
+$(document).trigger('cfw_funcs_loaded');
+
+/*
  * Retorna a largura (width) ou altura (height) da janela.
  *
  * @name        wSize
@@ -176,6 +179,6 @@ var cookies = {
     },
 
     erase: function (name) {
-        createCookie(name, "", -1);
+        this.create(name, "", -1);
     }
 }
