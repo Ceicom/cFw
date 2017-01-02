@@ -11,6 +11,10 @@
             if (cfw.loadedJS[plugin] == 'loaded') {
                 clearInterval(si);
                 if (options) swal(options);
+
+                // evento sweetalert carregado
+                $(document).trigger('cfw_sweetalert_loaded');
+
             }
         }, 100);
     }

@@ -1,7 +1,4 @@
-﻿// evento funcs carregadas
-$(document).trigger('cfw_funcs_loaded');
-
-/*
+﻿/*
  * Retorna a largura (width) ou altura (height) da janela.
  *
  * @name        wSize
