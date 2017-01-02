@@ -144,16 +144,16 @@ var capitalizeStr = function (string, eachWord) {
  * @param       {String} nome do cookie
  * @param       {String} valor do cookie
  * @param       {Number} dias de validade do cookie
- * @sample      cookies.create('cookie1', 'valorcookie1', 2); // cria um cookie com o nome de cookie1, com o valor de valorcookie1 valido por 2 dias
+ * @sample      cookies.create('cookie1', 'valorcookie1', 2); // cria um cookie com o nome de ´cookie1´, com o valor de ´valorcookie1´ valido por ´2´ dias
  *
  * @prototype   read
  * @param       {String} nome do cookie
  * @return      {String} valor do cookie ou null se o cookie não existir
- * @sample      cookies.read('cookie1'); // retorna conforme exemplo anterior o valor de valorcookie1
+ * @sample      cookies.read('cookie1'); // retorna conforme exemplo anterior o valor de ´valorcookie1´
  *
  * @prototype   erase
  * @param       {String} nome do cookie
- * @sample      cookies.erase('cookie1'); // apaga o cookie1
+ * @sample      cookies.erase('cookie1'); // apaga o ´cookie1´
  */
 
 var cookies = {
@@ -182,3 +182,30 @@ var cookies = {
         this.create(name, "", -1);
     }
 }
+
+/************************************************************/
+
+/*
+ * Limpa o array removendo valor apresentado
+ *
+ * @name        arrayClean
+ * @param       {Array} array que deverá ser varrido
+ * @param       {String} valor a ser ´removido´
+ * @return      {Array} retorna um novo array
+ * @sample      console.info(arrayClean(['a1','a2','a3'], 'a3')); // imprime ['a1','a2'];
+ * @sample      console.info(['a1','a2','a3'].clean('a2')); // imprime ['a1','a3'];
+ */
+
+var arrayClean = function (array, deleteValue) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].toLowerCase() == deleteValue.toLowerCase()) {
+            array.splice(i, 1);
+            i--;
+        }
+    }
+    return array;
+};
+
+Array.prototype.clean = function (deleteValue) {
+    return arrayClean(this, deleteValue);
+};
