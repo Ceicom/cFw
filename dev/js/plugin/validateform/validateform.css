@@ -15,7 +15,7 @@
     [data-cfw-tooltip]:before {
         position: absolute;
         top: calc(100% + 10px);
-        left: calc(50% - 100px);
+        left: 15px;
         padding: 7px;
         width: 200px;
         border-radius: 3px;
@@ -30,7 +30,7 @@
     [data-cfw-tooltip]:after {
         position: absolute;
         top: calc(100% + 5px);
-        left: calc(50% - 5px);
+        left: 105px;
         border-bottom: 5px solid #b01717;
         border-right: 5px solid transparent;
         border-left: 5px solid transparent;
