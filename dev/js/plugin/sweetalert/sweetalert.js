@@ -1245,7 +1245,7 @@
      */
 
     if (typeof define === 'function' && define.amd) {
-        define(function () {
+        define('sweetalert', [], function () {
             return sweetAlert;
         });
     } else if (typeof module !== 'undefined' && module.exports) {
