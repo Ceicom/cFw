@@ -12,6 +12,7 @@
                         'funcs',            // funções úteis            [ceicom]
                         'loadcss',          // assyncrono loader css    [https://github.com/filamentgroup/loadCSS]
                         'mask',             // mascára inputs           [http://igorescobar.github.io/jQuery-Mask-Plugin/]
+                        'printthis',        // imprimir elemento        [https://github.com/jasonday/printThis]
                         'matchheight',      // match height             [http://brm.io/jquery-match-height/]
                         'submitform',       // form via ajax            [ceicom]
                         'sweetalert',       // sweet alert :P           [http://t4t5.github.io/sweetalert/]
