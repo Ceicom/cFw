@@ -30,8 +30,7 @@
                 that = this;
 
             $form.find('[data-validate]').each(function () {
-                var type = $(this).attr('data-validate').toLowerCase() || $(this).attr('type').toLowerCase(),
-                    val = $(this).val();
+                var type = $(this).attr('data-validate').toLowerCase() || $(this).attr('type').toLowerCase();
 
                 if ($(this).is(':visible') || type == 'hidden') {
 

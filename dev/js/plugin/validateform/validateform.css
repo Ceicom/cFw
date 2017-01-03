@@ -31,8 +31,14 @@
         position: absolute;
         top: calc(100% + 5px);
         left: 105px;
+        right:auto;
+        bottom:auto;
         border-bottom: 5px solid #b01717;
         border-right: 5px solid transparent;
         border-left: 5px solid transparent;
         content: '';
+        width:0;
+        height:0;
+        background:transparent;
+        margin:auto;
     }
