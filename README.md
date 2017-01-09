@@ -7,7 +7,7 @@ Some codes that will speed up our front-end development;
 - fallback console
 - loadcss
 - [matchheight](https://github.com/Ceicom/cFw/tree/master/dev/js/config/matchheight)
-- sweetalert
+- [sweetalert](https://github.com/Ceicom/cFw/tree/master/dev/js/config/sweetalert)
 - form
     - citystate
     - mask
