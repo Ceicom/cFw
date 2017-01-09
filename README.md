@@ -16,9 +16,9 @@ Some codes that will speed up our front-end development;
     - validateformdata
     - zipcode
 - functions
-    - [capitalizeStr](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/funcs.js#capitalizeStr)
-    - [clearString](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/funcs.js#clearString)
-    - [cookies](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/funcs.js#cookies)
-    - [dealData](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/funcs.js#dealData)
-    - [getUrlParameter](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/funcs.js#getUrlParameter)
-    - [wSize](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/funcs.js#wSize)
+    - [capitalizeStr](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/#capitalizeStr)
+    - [clearString](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/#clearString)
+    - [cookies](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/#cookies)
+    - [dealData](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/#dealData)
+    - [getUrlParameter](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/#getUrlParameter)
+    - [wSize](https://github.com/Ceicom/cFw/blob/master/dev/js/plugin/funcs/#wSize)
