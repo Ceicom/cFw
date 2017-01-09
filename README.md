@@ -1,5 +1,5 @@
 # cFw
-Some codes that will speed up our front-end development;
+Some codes that will speed up our development;
 
 ###Components
 - [analytics](https://github.com/Ceicom/cFw/tree/master/dev/js/config/analytics)
