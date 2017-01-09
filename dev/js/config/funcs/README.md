@@ -78,49 +78,49 @@ retorno:
 }
 ```
 
-* retorna o mês por extenso
+**retorna o mês por extenso**
 ```
 console.info( myDate.monthExt );
 //dezembro
 ```
 
-* retorna o mês abreviado
+**retorna o mês abreviado**
 ```
 console.info( myDate.monthAbr );
 //dez
 ```
 
-* retorna o mês em numeral
+**retorna o mês em numeral**
 ```
 console.info( myDate.month );
 //12
 ```
 
-* retorna o dia
+**retorna o dia**
 ```
 console.info( myDate.day );
 //16
 ```
 
-* retorna a hora completa
+**retorna a hora completa**
 ```
 console.info( myDate.fullHour );
 //14:12:00
 ```
 
-* retorna a hora
+**retorna a hora**
 ```
 console.info( myDate.hour );
 //14
 ```
 
-* retorna a minuto
+**retorna a minuto**
 ```
 console.info( myDate.minute );
 //12
 ```
 
-* retorna a segundo
+**retorna a segundo**
 ```
 console.info( myDate.second );
 //00
@@ -145,14 +145,14 @@ getURLParameter('id');
 
 Retorna a largura (width) ou altura (height) da janela.
 
-* retornando a largura
+**retornando a largura**
  
 ```
 console.info( wSize('w') );
 //ex: 1920
 ```
 
-* retornando a altura
+**retornando a altura**
 
 ```
 console.info( wSize('h') );
