@@ -12,6 +12,7 @@
                         'funcs',            // funções úteis            [ceicom]
                         'loadcss',          // assyncrono loader css    [https://github.com/filamentgroup/loadCSS]
                         'mask',             // mascára inputs           [http://igorescobar.github.io/jQuery-Mask-Plugin/]
+                        'owlcarousel',      // slider, carousel         [https://owlcarousel2.github.io/OwlCarousel2/]
                         'printthis',        // imprimir elemento        [https://github.com/jasonday/printThis]
                         'matchheight',      // match height             [http://brm.io/jquery-match-height/]
                         'submitform',       // form via ajax            [ceicom]

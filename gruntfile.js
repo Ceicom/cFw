@@ -113,6 +113,18 @@
             }
         },
 
+        /* COPIA ARQUIVOS DOS PLUGINS (FORA CSS E JS) */
+        copy: {
+            copyvendor: {
+                files: [{
+                    expand: true,
+                    cwd: 'dev/js/plugin',
+                    src: ['**/*.jpg', '**/*.png', '**/*.gif', '**/*.cur', '**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff', '**/*.woff2', '**/*.php'],
+                    dest: 'prod/vendor/'
+                }]
+            }
+        },
+
         /* DELETA AS PASTAS */
         clean: ['prod'],
 
@@ -162,5 +174,5 @@
     grunt.registerTask('default', ['watch']);
 
     /* TAREFA GERA TUDO */
-    grunt.registerTask('init', ['clean', 'postcss', 'cssmin', 'uglify', 'jsonmin']);
+    grunt.registerTask('init', ['clean', 'postcss', 'cssmin', 'uglify', 'jsonmin', 'copy']);
 };

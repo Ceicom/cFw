@@ -13,6 +13,7 @@
     "grunt": "latest",
     "grunt-contrib-clean": "latest",
     "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-copy": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
     "grunt-jsonmin": "^0.2.4",
