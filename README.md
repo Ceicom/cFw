@@ -2,7 +2,7 @@
 Some codes that will speed up our front-end development;
 
 ###Components
-- analytics
+- [analytics](https://github.com/Ceicom/cFw/tree/master/dev/js/config/analytics)
 - cmodal
 - fallback console
 - form
