@@ -28,7 +28,7 @@ Um jeito diferente de apresentar 'alert()'
 * Carregar o **CSS** do plugin, insira o código abaixo antes de fechar o `</head>`:
 
 ```
-<link href="http://src.inf.br/cfw/cfw.min.css" rel="stylesheet" type="text/css"/>
+<link href="http://src.inf.br/vendor/sweetalert/sweetalert.min.css" rel="stylesheet" type="text/css"/>
 ```
 
 * Instancie o script do **cFw** na página, antes de fechar o `</body>` com o seguinte código:
