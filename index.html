@@ -193,6 +193,7 @@
                 <button type="submit" disabled>OK</button>
             </div>
         </form>
+
     </div>
 
     <hr />
@@ -210,7 +211,7 @@
     <hr />
 
     <h3>carrousel</h3>
-    <div>
+    <div hidden>
         <ul class="carrousel owl-carousel">
             <li><img src="https://unsplash.it/g/200/300?image=0" alt="" /></li>
             <li><img src="https://unsplash.it/g/200/300?image=1" alt="" /></li>
@@ -223,6 +224,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <script>
         $('h3').on('click', function () {
             $(this).next().toggle();
@@ -237,7 +239,9 @@
         });
 
     </script>
-    <script src="/prod/cfw/cfw.min.js"></script>
+
+    <script src="//src.inf.br/cfw/cfw.min.js"></script>
+
     <script>
         cfw.cmodal.init();
 
