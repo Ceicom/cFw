@@ -1,15 +1,6 @@
 ﻿(function (w) {
     "use strict";
 
-    /* options */
-    var config = {
-        colorBtn: 'yellow',
-        parent: 'body'
-    }
-
-    //
-    if (cfw.cmodal.options) { $.extend(config, cfw.cmodal.options); }
-
     /* exported */
     function cModal(wrapper) {
         this.wrapper = $('.cfw-modal');
@@ -59,17 +50,15 @@
 
         if (!$('.cfw-modal').length) {
 
-            var styleBtn = 'style="background: '+config.colorBtn+';"';
-
             var html =
                 '<div class="cfw-modal" id="js-modal" hidden>' +
                 '    <div class="cfw-modal__pos-conteudo">' +
-                '        <button class="cfw-modal__close-btn js-close-modal" type="button" ' + styleBtn + ' title="Fechar"></button>' +
+                '        <button class="cfw-modal__close-btn js-close-modal" type="button" title="Fechar"></button>' +
                 '        <div class="cfw-modal__conteudo"></div>' +
                 '    </div>' +
                 '</div>';
 
-            $(config.parent).append(html);
+            $('body').append(html);
         }
     }
 
