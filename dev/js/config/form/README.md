@@ -2,6 +2,12 @@
 
 Existem várias funções para validação de formulários.
 
+- debugando ajax
+
+```
+seurl.com.br?debug=true
+```
+
 ### Usando no boilerplate
 
 * Após criar seu arquivo, insira dentro do `asp:Content` referente ao `<head>` a seguinte Meta Tag:
@@ -321,3 +327,16 @@ O atributo **data-validate**, torna um elemento obrigatório para validação. E
 <input type="email" data-validate-group="email"/>
 <input type="email" data-validate-group="email"/>
 ````
+---
+
+### validateFormData
+
+Verifica a compatibilidade dos navegadores sobre o suporte a arquivos `<input type="file"\>`;
+
+- iniciando a validação dos arquivos:
+
+    ```
+    cfw.validateformdata.init();
+    ```` 
+
+- Caso o [browser](https://whatbrowser.org/) não suporte, uma mensagem é impressa.

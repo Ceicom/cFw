@@ -129,7 +129,6 @@
 
     });
 
-
     // commonjs
     if (typeof exports !== "undefined")
         exports.cfwSubmitForm = cfwSubmitForm;
