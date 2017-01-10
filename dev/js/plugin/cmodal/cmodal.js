@@ -77,9 +77,12 @@
     $(document).on('click', function (e) {
         var $el = $(e.target);
 
-        if (($el.hasClass('js-close-modal') || !$el.closest('.cfw-modal__conteudo').length) && $('body').hasClass('modal-open')) {
-            if ($('.cfw-modal:visible').length) $('.cfw-modal:visible').trigger('close');
-        }
+        var close = $el.hasClass('js-close-modal') ? true :
+                    !$el.closest('.cfw-modal__conteudo').length && !$el.closest('.sweet-alert').length ? true : false;
+
+        if (close && !$('body').hasClass('modal-open')) close = false;
+
+        if ($('.cfw-modal:visible').length && close) $('.cfw-modal:visible').trigger('close');
     });
 
     $(document).on('keyup', function (e) {
