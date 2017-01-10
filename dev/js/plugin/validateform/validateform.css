@@ -1,4 +1,7 @@
 /* Inputs Error */
+.formee .cfw-input-invalid input,
+.formee .cfw-input-invalid select,
+.formee .cfw-input-invalid textarea,
 .cfw-input-invalid input,
 .cfw-input-invalid select,
 .cfw-input-invalid textarea {
