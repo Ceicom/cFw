@@ -3,12 +3,12 @@
 
     /* exported */
     function cModal(wrapper) {
-        this.wrapper = $('.cfw-modal');
         this.body = $('body');
     }
 
-    cModal.prototype.init = function () {
+    cModal.prototype.init = function ($item) {
         var _ = this;
+            _.wrapper = $item.closest('.cfw-modal');
 
         _.wrapper.on('close', function () {
             _.close();
@@ -20,13 +20,10 @@
     cModal.prototype.open = function () {
         var _ = this;
 
-        _.wrapper
-            .find('.cfw-modal__conteudo').html(_.content.html()).end()
-            .fadeIn('fast', function () {
-                _.body.addClass('modal-open');
-
-                $(window).trigger('cfw-modal-open');
-            });
+        _.wrapper.fadeIn('fast', function () {
+            _.body.addClass('modal-open');
+            $(window).trigger('cfw-modal-open');
+        });
 
         return this;
     }
@@ -37,7 +34,6 @@
         _.wrapper.fadeOut('fast', function () {
             _.body.removeClass('modal-open');
             _.wrapper.off('close callClose');
-
             $(window).trigger('cfw-modal-close');
         });
 
@@ -46,23 +42,25 @@
 
     /**********************************/
 
-    function generateHtml() {
-
-        if (!$('.cfw-modal').length) {
-
-            var html =
-                '<div class="cfw-modal" id="js-modal" hidden>' +
-                '    <div class="cfw-modal__pos-conteudo">' +
-                '        <button class="cfw-modal__close-btn js-close-modal" type="button" title="Fechar"></button>' +
-                '        <div class="cfw-modal__conteudo"></div>' +
-                '    </div>' +
-                '</div>';
-
-            $('body').append(html);
-        }
+    function checkIdClass(nome) {
+        return (nome.charAt(0) != '#' && nome.charAt(0) != '.') ? '#' + nome : nome;
     }
 
-    generateHtml();
+    /**********************************/
+
+    function initLayout() {
+        $('[data-modal]').each(function () {
+
+            $(checkIdClass($(this).attr('data-modal')))
+                .wrap('<div class="cfw-modal" hidden></div>')
+                .wrap('<div class="cfw-modal__pos-conteudo"></div>')
+                .wrap('<div class="cfw-modal__conteudo"></div>')
+                .attr('hidden', false)
+                .closest('.cfw-modal__pos-conteudo').append('<button class="cfw-modal__close-btn js-close-modal" type="button" title="Fechar"></button>');
+        });
+    }
+
+    initLayout();
 
     /**********************************/
 
@@ -73,11 +71,7 @@
 
         var item = $(this).attr('data-modal');
 
-        // valida id ou classe
-        if (item.charAt(0) != '#' && item.charAt(0) != '.') item = '#' + item;
-
-        form.content = $(item);
-        form.init();
+        form.init($(checkIdClass(item)));
     });
 
     $(document).on('click', function (e) {
