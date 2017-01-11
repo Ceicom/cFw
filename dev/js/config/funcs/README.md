@@ -135,7 +135,7 @@ Captura parametro passado via GET na URL
 **url:** `http://test.com/noticias?id=4`
 
 ```
-getURLParameter('id');
+getUrlParameter('id');
 //4
 ```
 
