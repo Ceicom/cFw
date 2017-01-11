@@ -6,6 +6,7 @@ Some codes that will speed up our development;
 - cmodal
 - fallback console
 - loadcss
+- [lightgallery](https://github.com/Ceicom/cFw/tree/master/dev/js/config/lightgallery)
 - [owlcarousel](https://github.com/Ceicom/cFw/tree/master/dev/js/config/owlcarousel)
 - [matchheight](https://github.com/Ceicom/cFw/tree/master/dev/js/config/matchheight)
 - [sweetalert](https://github.com/Ceicom/cFw/tree/master/dev/js/config/sweetalert)
