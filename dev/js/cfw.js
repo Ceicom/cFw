@@ -9,6 +9,7 @@
                         'citystate',        // lista cidade estado      [ceicom]
                         'cmodal',           // modal                    [ceicom]
                         'form',             // atalho modulos forms     [ceicom]
+                        'lightgallery',     // galeria fotos            [https://github.com/sachinchoolur/lightGallery]
                         'funcs',            // funções úteis            [ceicom]
                         'loadcss',          // assyncrono loader css    [https://github.com/filamentgroup/loadCSS]
                         'mask',             // mascára inputs           [http://igorescobar.github.io/jQuery-Mask-Plugin/]

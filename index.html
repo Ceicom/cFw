@@ -8,7 +8,6 @@
     <hr />
 
     <h3>cModal</h3>
-
     <div hidden>
         <button data-modal="teste123">ABRIR MODAL</button>
 
@@ -210,17 +209,34 @@
     <hr />
 
     <h3>carrousel</h3>
-    <div>
+    <div hidden>
         <ul class="carrousel owl-carousel">
-            <li><img src="https://unsplash.it/g/200/300?image=0" alt="" /></li>
-            <li><img src="https://unsplash.it/g/200/300?image=1" alt="" /></li>
-            <li><img src="https://unsplash.it/g/200/300?image=2" alt="" /></li>
-            <li><img src="https://unsplash.it/g/200/300?image=3" alt="" /></li>
-            <li><img src="https://unsplash.it/g/200/300?image=4" alt="" /></li>
-            <li><img src="https://unsplash.it/g/200/300?image=5" alt="" /></li>
+            <li><img src="/test/1.jpg" alt="" /></li>
+            <li><img src="/test/2.jpg" alt="" /></li>
+            <li><img src="/test/3.jpg" alt="" /></li>
         </ul>
 
     </div>
+
+    <hr />
+
+    <h3>lightgallery</h3>
+    <div>
+
+        <div id="lightgallery">
+            <a href="/test/1.jpg">
+                <img src="/test/1.jpg" width="200" height="200" alt="" />
+            </a>
+            <a href="/test/2.jpg">
+                <img src="/test/2.jpg" width="200" height="200" alt="" />
+            </a>
+            <a href="/test/3.jpg">
+                <img src="/test/3.jpg" width="200" height="200" alt="" />
+            </a>
+        </div>
+
+    </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
@@ -349,6 +365,11 @@
         cfw.owlcarousel.init({
             element: '.carrousel',
             loop: true
+        });
+
+        cfw.lightgallery.init({
+            element: '#lightgallery',
+            share: true
         });
 
     </script>
