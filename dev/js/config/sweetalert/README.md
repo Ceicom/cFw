@@ -5,7 +5,6 @@ Um jeito diferente de apresentar 'alert()'
 
 ### Usando no boilerplate
 
-
 * Após criar seu arquivo, insira dentro do `asp:Content` referente ao `<head>` a seguinte Meta Tag:
 
 ```

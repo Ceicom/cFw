@@ -1,20 +1,21 @@
 # cFw
 Some codes that will speed up our development;
 
-###Components
+### Components
 - [analytics](https://github.com/Ceicom/cFw/tree/master/dev/js/config/analytics)
 - cmodal
 - fallback console
 - loadcss
+- [owlcarousel](https://github.com/Ceicom/cFw/tree/master/dev/js/config/owlcarousel)
 - [matchheight](https://github.com/Ceicom/cFw/tree/master/dev/js/config/matchheight)
 - [sweetalert](https://github.com/Ceicom/cFw/tree/master/dev/js/config/sweetalert)
-- form
-    - citystate
-    - mask
-    - submitform
-    - validateform
-    - validateformdata
-    - zipcode
+- [form](https://github.com/Ceicom/cFw/tree/master/dev/js/config/form)
+    - [citystate](https://github.com/Ceicom/cFw/tree/master/dev/js/config/form#citystate)
+    - [mask](https://github.com/Ceicom/cFw/tree/master/dev/js/config/form#mask)
+    - [submitform](https://github.com/Ceicom/cFw/tree/master/dev/js/config/form#submitform)
+    - [validateform](https://github.com/Ceicom/cFw/tree/master/dev/js/config/form#validateform)
+    - [validateformdata](https://github.com/Ceicom/cFw/tree/master/dev/js/config/form#validateformdata)
+    - [zipcode](https://github.com/Ceicom/cFw/tree/master/dev/js/config/form#zipcode)
 - functions
     - [capitalizeStr](https://github.com/Ceicom/cFw/blob/master/dev/js/config/funcs/#capitalizestr)
     - [clearString](https://github.com/Ceicom/cFw/blob/master/dev/js/config/funcs/#clearstring)
