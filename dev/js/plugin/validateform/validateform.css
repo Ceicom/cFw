@@ -44,4 +44,7 @@
         height:0;
         background:transparent;
         margin:auto;
+        -webkit-transform: none;
+            -ms-transform: none;
+                transform: none;
     }
