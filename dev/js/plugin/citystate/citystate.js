@@ -64,7 +64,7 @@
     }
 
     citystate.dealData = function (what, $el, data) {
-        var html = what == 'states' ? '<option value="0">Selecione um estado</option>' : '';
+        var html = what == 'states' ? '<option value="">Selecione um estado</option>' : '';
             html += this.generateOptions(what, $el, data);
 
         this.putOptions(what, $el, html);
@@ -190,7 +190,7 @@
               'disabled': true,
               'data-list-loaded': true
           })
-          .html('<option value="0" selected>Selecione uma cidade</option>');
+          .html('<option value="" selected>Selecione uma cidade</option>');
 
         $(document).trigger('cfw_cidades_loaded', [$el]);
     }
