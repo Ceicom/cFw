@@ -119,6 +119,8 @@
         }
     });
 
+    if (zipcode.el.attr('data-zipcode-init'))
+        zipcode.el.trigger('blur');
 
     // commonjs
     if (typeof exports !== "undefined")
