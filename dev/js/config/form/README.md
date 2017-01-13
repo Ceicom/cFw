@@ -90,66 +90,69 @@ cfw.citystate.init({
 cfw.mask.init();
 ```
 
-- options (opcional):
+- Ao inicializar conforme modelo acima é obrigatório o uso dos atributos do html5 `data` para indicar qual mascara será aplicada em cada elemento
+- Opcional você pode inicializar o plugin especifico para um elemento, ex:
 
 ```
-{
-    element: $('.element'),
-    mask: '00.000.000/0000-00',
-    options: {
-        reverse: true,
-        selectOnFocus: true
-    }
-}
+cfw.mask.init(
+  {
+      element: $('.element'),
+      mask: '00.000.000/0000-00',
+      options: {
+          reverse: true,
+          selectOnFocus: true
+      }
+  }
+);
 ```
 
-- opções do mask:
-  - **element** : Elemento a ser aplicado a máscara, $('.elemento');
+- sendo possivel repassar todas todos os options da documentação oficinal nesta inicialização, no exemplo foram repassadas:
+  - **element** : Elemento a ser aplicado a máscara, $('.elemento') (obrigatório);
   - **mask** [string] :  com o modelo de máscara ( ex: '00.000.000/0000-00' );
   - **reverse** [bool] :  Preenchimento da máscara da direita para esquerda
   - **selectOnFocus** [bool] : Seleciona todo o valor do campo ao dar o focus
 
-- Iniciando validação das Máscaras por atributos:
-- **Datas**
+- Existem alguns aliases para as as máscaras:
+- **Data (mascara dd/mm/aaaa)**
  
 ```
-<input id="abc" type="text" data-mask="date" placeholder="00/00/0000"/>
+<input type="text" data-mask="date"/>
 ```
 
-- **CEP**
+- **CEP (mascara 00000-000)**
 
 ```
-<input type="text" data-mask="zip" placeholder="00000-000"/>
+<input type="text" data-mask="zip"/>
 ```
 
-- **Dinheiro**
+- **Dinheiro (mascara 0.000,00 sem limite de caracteres (max-lenght))**
 
 ```
-<input type="text" data-mask="money" placeholder="0.000,00"/>
+<input type="text" data-mask="money"/>
 ```
 
-- **CNPJ**
+- **CNPJ (mascara 00.000.000/0000-00)**
 
 ```
-<input class="cnpj" type="text" placeholder="00.000.000/0000-00"/>
+<input type="text" data-mask="cnpj"/>
 ```
 
-- **CPF**
+- **CPF (mascara 000.000.000-00)**
 
 ```
-<input class="cpf" type="text" placeholder="000.000.000-00"/>
+<input type="text" data-mask="cpf"/>
 ```
 
-- **Telefone**
+- **Telefone (mascara (00) 00000-0000)**
 
 ```
-<input type="text" class="telefone" placeholder="(00) 00000-0000"/>
+<input type="text" data-mask="telefone"/>
 ```
 
-- **Hora**
+- **Hora (mascara hh:mm:ss)**
 
 ```
-<input type="text" class="time" placeholder="00:00:00"/>
+<input type="text" data-mask="time"/>
 ```
 
 ---
