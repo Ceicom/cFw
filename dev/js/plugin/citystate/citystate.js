@@ -49,18 +49,24 @@
     citystate.getJson = function (what, $el, cb) {
         var that = this;
 
-        if (!localStorage.getItem('cfw_citst_' + what)) {
-            var file = what == 'states' ? 'states.min.json' : 'cities/' + what.toLowerCase() + '.min.json';
+        if (what) {
 
-            $.getJSON(cfw.pathFile.json + file, function (data) {
-                localStorage.setItem('cfw_citst_' + what, JSON.stringify(data));
-                if ($el) that.dealData(what, $el, data);
-                if (typeof (cb) == 'function') cb();
-            });
+            if (!localStorage.getItem('cfw_citst_' + what)) {
+                var file = what == 'states' ? 'states.min.json' : 'cities/' + what.toLowerCase() + '.min.json';
+
+                $.getJSON(cfw.pathFile.json + file, function (data) {
+                    localStorage.setItem('cfw_citst_' + what, JSON.stringify(data));
+                    if ($el) that.dealData(what, $el, data);
+                    if (typeof (cb) == 'function') cb();
+                });
+            }
+
+            if ($el && localStorage.getItem('cfw_citst_' + what))
+                that.dealData(what, $el, JSON.parse(localStorage.getItem('cfw_citst_' + what)));
+
         }
-
-        if ($el && localStorage.getItem('cfw_citst_' + what))
-            that.dealData(what, $el, JSON.parse(localStorage.getItem('cfw_citst_' + what)));
+        else
+            console.warn('citystate.getJson: var what = "' + what + '"');
     }
 
     citystate.dealData = function (what, $el, data) {
