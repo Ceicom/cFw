@@ -75,19 +75,22 @@
 
             //
             required: function ($el) {
-                return !!this.clearStr($el.val().trim());
+                var val = $el.val() || '';
+                return !!this.clearStr(val.trim());
             },
 
             fullname: function ($el) {
+                var val = $el.val() || '';
                 return this.checkOptional($el, function () {
-                    return $el.val().trim().split(' ').length > 1;
+                    return val.trim().split(' ').length > 1;
                 });
             },
 
             email: function ($el) {
+                var val = $el.val() || '';
                 return this.checkOptional($el, function () {
                     var er = new RegExp(/^[A-Za-z0-9_\-\.]+@[A-Za-z0-9_\-\.]{2,}\.[A-Za-z0-9]{2,}(\.[A-Za-z0-9])?/);
-                    return !!er.test($el.val().trim());
+                    return !!er.test(val.trim());
                 });
             },
 
@@ -168,9 +171,10 @@
             },
 
             url: function ($el) {
+                var val = $el.val() || '';
                 return this.checkOptional($el, function () {
                     var er = new RegExp(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i);
-                    return !!er.test($el.val().trim());
+                    return !!er.test(val.trim());
                 });
             },
 
