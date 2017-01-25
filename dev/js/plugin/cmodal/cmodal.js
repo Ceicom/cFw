@@ -10,6 +10,8 @@
         var _ = this;
             _.wrapper = $item.closest('.cfw-modal');
 
+        if ($item.attr('data-modal-class')) _.wrapper.addClass($item.attr('data-modal-class'));
+
         _.wrapper.on('close', function () {
             _.close();
         });
