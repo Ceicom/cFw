@@ -362,7 +362,7 @@
                 that = this;
 
             $form.on('keypress', 'input, select, textarea', function (e) {
-                if (e.keyCode == 13) {
+                if (e.keyCode == 13 && event.target.nodeName.toLowerCase() != 'textarea') {
                     e.preventDefault();
                     $(this).closest(that.options.form).find('[type=submit]:lt(1)').trigger('click');
                 }

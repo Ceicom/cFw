@@ -53,7 +53,7 @@
 
     <h3>cidadeEstado</h3>
 
-    <div>
+    <div hidden>
 
         <select id="estado">
             <option>carregando...</option>
@@ -97,12 +97,18 @@
 
     <h3>validaform</h3>
 
-    <div hidden>
-        <form data-validate="form" style="padding:0 20px;" hidden>
+    <div>
+        <form data-validate="form" style="padding:0 20px;">
             <div>
                 <label>
                     Required
                     <input type="text" value="obrigatorio" data-validate="required" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Enter no textarea
+                    <textarea data-validate="required"></textarea>
                 </label>
             </div>
             <div>
