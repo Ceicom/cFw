@@ -71,8 +71,7 @@
                 var key = info[0];
                 var val = decodeURIComponent(info[1]);
 
-                if (key && val)
-                    returnData.append(key, val);
+                returnData.append(key, val);
             }
         }
 

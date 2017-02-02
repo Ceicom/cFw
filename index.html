@@ -97,7 +97,7 @@
 
     <h3>validaform</h3>
 
-    <div>
+    <div hidden>
         <form data-validate="form" style="padding:0 20px;">
             <div>
                 <label>
@@ -244,6 +244,12 @@
 
     </div>
 
+    <hr />
+
+    <h3>popup</h3>
+    <div hidden>
+        <meta name="bannerAd" data-image="/test/1.jpg" data-link="www.ceicom.com.br" />
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -377,9 +383,16 @@
             loop: true
         });
 
+        //cfw.lightgallery.init({
+        //    element: '#lightgallery',
+        //    share: true
+        //});
+
         cfw.lightgallery.init({
             element: '#lightgallery',
-            share: true
+            share: true,
+            zoom: true,
+            autoplay: true
         });
 
     </script>
