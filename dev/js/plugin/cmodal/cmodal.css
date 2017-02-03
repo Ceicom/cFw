@@ -12,6 +12,17 @@
     z-index: 20;
 }
 
+    .cfw-modal.for-img img {
+        position:absolute;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        margin:auto;
+        display:block;
+        max-height:90vh;
+    }
+
 .cfw-modal__close-btn {
     position: absolute;
     top: 0;

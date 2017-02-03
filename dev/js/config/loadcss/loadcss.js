@@ -8,7 +8,6 @@
                 var callback = typeof (options) === 'object' ? options.callback : null;
 
                 var stylesheet = loadCSS(arquivo);
-
                 if (callback) onloadCSS(stylesheet, callback);
             }
         });

@@ -8,8 +8,8 @@
     <hr />
 
     <h3>cModal</h3>
-    <div hidden>
-        <button data-modal="teste123">ABRIR MODAL</button>
+    <div>
+        <button data-modal="teste123" data-modal-class="teste123">MODAL TXT</button>
 
         <div id="teste123" hidden>
             <h1>Dolor sit.</h1>
@@ -19,6 +19,13 @@
             <p><strong>Amet, consectetur adipiscing elit.</strong></p>
             <p><small>Elit fusce vel sapien elit in malesuada.</small></p>
         </div>
+
+        <a data-modal href="/test/2.jpg" title="Modal teste 123" data-modal-class="img123" data-modal-url="http://www.ceicom.com.br/">MODAL IMG LINK</a>
+
+        <button data-modal data-modal-img="/test/1.jpg" data-modal-lock="false">MODAL IMG BUTTON</button>
+
+        <a data-modal href="/test/3.jpg" title="Auto Modal teste 123" data-modal-url="http://www.ceicom.com.br/" data-auto-modal></a>
+
     </div>
 
     <hr />
@@ -268,7 +275,8 @@
 
     </script>
 
-    <script src="//src.inf.br/cfw/cfw.min.js"></script>
+    <!--<script src="//src.inf.br/cfw/cfw.min.js"></script>-->
+    <script src="/prod/cfw/cfw.min.js"></script>
 
     <script>
         cfw.cmodal.init();
