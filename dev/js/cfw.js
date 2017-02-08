@@ -8,6 +8,7 @@
                         'analytics',        // analytics google         [https://www.google.com/analytics/]
                         'citystate',        // lista cidade estado      [ceicom]
                         'cmodal',           // modal                    [ceicom]
+                        'dotdotdot',        // corta texto insere ...   [https://github.com/FrDH/jQuery.dotdotdot]
                         'form',             // atalho modulos forms     [ceicom]
                         'lightgallery',     // galeria fotos            [https://github.com/sachinchoolur/lightGallery]
                         'funcs',            // funções úteis            [ceicom]
