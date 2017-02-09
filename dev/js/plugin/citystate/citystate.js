@@ -130,8 +130,6 @@
             .html(data);
 
         var event = what == 'states' ? what : 'cities';
-
-        console.info(event);
         $(document).trigger('cfw_' + event + '_loaded', [$el]);
     }
 
@@ -200,7 +198,7 @@
           })
           .html('<option value="" selected>Selecione uma cidade</option>');
 
-        $(document).trigger('cfw_cidades_loaded', [$el]);
+        $(document).trigger('cfw_cities_loaded', [$el]);
     }
 
     // commonjs
