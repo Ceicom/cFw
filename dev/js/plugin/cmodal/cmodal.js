@@ -124,15 +124,18 @@
             if ($(this).attr('data-auto-modal') && !aModal) aModal = $(this);
 
             if (type == 'txt') {
-                $(checkIdClass($(this).attr('data-modal')))
-                    .wrap('<div class="cfw-modal" hidden></div>')
-                    .wrap('<div class="cfw-modal__pos-conteudo"></div>')
-                    .wrap('<div class="cfw-modal__conteudo"></div>')
-                    .attr('hidden', false)
-                    .closest('.cfw-modal__pos-conteudo').append('<button class="cfw-modal__close-btn js-close-modal" type="button" title="Fechar"></button>')
-                    .parent().find('iframe').each(function () {
-                        $(this).attr('src', $(this).attr('data-src'));
-                    });
+                var $el = $(checkIdClass($(this).attr('data-modal')));
+
+                if(!$el.parent().hasClass('cfw-modal__conteudo'))
+                    $el
+                        .wrap('<div class="cfw-modal" hidden></div>')
+                        .wrap('<div class="cfw-modal__pos-conteudo"></div>')
+                        .wrap('<div class="cfw-modal__conteudo"></div>')
+                        .attr('hidden', false)
+                        .closest('.cfw-modal__pos-conteudo').append('<button class="cfw-modal__close-btn js-close-modal" type="button" title="Fechar"></button>')
+                        .parent().find('iframe').each(function () {
+                            $(this).attr('src', $(this).attr('data-src'));
+                        });
             }
 
             if (type == 'img' && !$('.cfw-modal.for-img').length) {
