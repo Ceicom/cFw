@@ -130,6 +130,8 @@
             .html(data);
 
         var event = what == 'states' ? what : 'cities';
+
+        console.info(event);
         $(document).trigger('cfw_' + event + '_loaded', [$el]);
     }
 

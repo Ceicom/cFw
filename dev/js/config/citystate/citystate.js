@@ -29,7 +29,7 @@
     }
 
     // eventos cidade/estado
-    //$(document).on('cfw_cidades_loaded', function (e, $el) {});
-    //$(document).on('cfw_estados_loaded', function (e, $el) {});
+    //$(document).on('cfw_cities_loaded', function (e, $el) {});
+    //$(document).on('cfw_states_loaded', function (e, $el) {});
 
 })();
