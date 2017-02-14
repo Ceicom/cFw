@@ -11,7 +11,7 @@
 
                 var $form = $(this).closest(that.options.form);
 
-                if ($('body').attr('data-submitform')) $('body').removeAttr('data-submitform');
+                if ($('body').attr('data-form')) $('body').removeAttr('data-form');
 
                 if ($form.length) {
                     var retForm = that.validateForm($form);
@@ -20,7 +20,7 @@
                         e.preventDefault();
 
                     if (retForm == true && $form.attr('data-submitform'))
-                        $('body').attr('data-submitform', $form.attr('data-submitform'));
+                        $('body').attr('data-form', $form.attr('data-submitform'));
                 }
             });
         }

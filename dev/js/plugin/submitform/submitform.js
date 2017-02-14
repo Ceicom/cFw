@@ -108,7 +108,7 @@
     // form submit
     $('form').on('submit', function (e) {
 
-        var form = $('body').attr('data-submitform');
+        var form = $('body').attr('data-form');
 
         if (form) {
             e.preventDefault();
