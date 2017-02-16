@@ -19,6 +19,8 @@
                     if (retForm != true)
                         e.preventDefault();
 
+                    $form.attr('data-form-validated', retForm);
+
                     if (retForm == true && $form.attr('data-submitform'))
                         $('body').attr('data-form', $form.attr('data-submitform'));
                 }
