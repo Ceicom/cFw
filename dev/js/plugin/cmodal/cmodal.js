@@ -11,6 +11,8 @@
             keepDoing = true,
             classe;
 
+        if (!$el.parent().hasClass('cfw-modal__conteudo')) initLayout();
+
         _.type = $el.attr('data-modal-type');
 
         if (_.type == 'img') {
