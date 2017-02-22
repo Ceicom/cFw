@@ -1,7 +1,6 @@
 ﻿(function (w) {
     "use strict";
 
-    console = window.console || { log: function () { } }                                     // console.log fix ie podre véio
     if (typeof jQuery === "undefined") { throw new Error('cfw é dependente do JQuery...'); } // verifica inicialização do jquery
 
     var plugins     = [
