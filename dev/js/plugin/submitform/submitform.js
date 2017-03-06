@@ -83,12 +83,12 @@
         var that = this;
         var type = $form.attr('data-submitform');
         var formData = that.FormData($form) || $('form').serialize();
+        var handler = $form.attr('data-handlerform') || '/modulos/handlers/formularios.ashx';
 
         /**/
-
         var ajaxRequest = {}
         ajaxRequest.type = 'POST';
-        ajaxRequest.url = '/modulos/handlers/formularios.ashx?type=' + type;
+        ajaxRequest.url = handler + '?type=' + type;
         ajaxRequest.processData = false;
         ajaxRequest.data = formData;
 
