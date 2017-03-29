@@ -21,6 +21,7 @@
         margin:auto;
         display:block;
         max-height:90vh;
+        max-width:100%;
     }
 
 .cfw-modal__close-btn {
