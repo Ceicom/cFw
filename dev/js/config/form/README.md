@@ -128,31 +128,31 @@ cfw.mask.init(
 - **Dinheiro (mascara 0.000,00 sem limite de caracteres (max-lenght))**
 
 ```
-<input type="text" data-mask="money"/>
+<input type="text" data-mask="0.000,00"/>
 ```
 
 - **CNPJ (mascara 00.000.000/0000-00)**
 
 ```
-<input type="text" data-mask="cnpj"/>
+<input type="text" data-mask="00.000.000/0000-00"/>
 ```
 
 - **CPF (mascara 000.000.000-00)**
 
 ```
-<input type="text" data-mask="cpf"/>
+<input type="text" data-mask="000.000.000-00"/>
 ```
 
 - **Telefone (mascara (00) 00000-0000)**
 
 ```
-<input type="text" data-mask="telefone"/>
+<input type="text" data-mask="(00) 00000-0000"/>
 ```
 
 - **Hora (mascara hh:mm:ss)**
 
 ```
-<input type="text" data-mask="time"/>
+<input type="text" data-mask="hh:mm:ss"/>
 ```
 
 ---
