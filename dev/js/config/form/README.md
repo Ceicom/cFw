@@ -116,13 +116,13 @@ cfw.mask.init(
 - **Data (mascara dd/mm/aaaa)**
  
 ```
-<input type="text" data-mask="date"/>
+<input type="text" data-mask="dd/mm/aaaa"/>
 ```
 
 - **CEP (mascara 00000-000)**
 
 ```
-<input type="text" data-mask="zip"/>
+<input type="text" data-mask="00000-000"/>
 ```
 
 - **Dinheiro (mascara 0.000,00 sem limite de caracteres (max-lenght))**
