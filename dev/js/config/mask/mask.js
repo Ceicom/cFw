@@ -37,7 +37,7 @@
                     setMaskAtribute($el, '00000-000');
                     break;
                 case 'phone':
-                    setMaskAtribute($el, '(00) 00000-0000');
+                    maskPhoneDeal($el);
                     break;
                 case 'date':
                     setMaskAtribute($el, '00/00/0000');
@@ -55,6 +55,24 @@
                     val = '00:00:00';
                     break;
             }
+        }
+
+        function maskPhoneDeal($el) {
+            $el.addClass('js-maskit-phone-mask').removeAttr('data-mask');
+
+            var w8 = setInterval(function () {
+                if (cfw.loadedJS[plugin] == 'loaded') {
+                    clearInterval(w8);
+
+                    var celphoneMask = ['(00) 00000-0000', '(00) 0000-00000'];
+                    $('.js-maskit-phone-mask').mask(celphoneMask[1], {
+                        onKeyPress:
+                           function (val, e, field, options) {
+                               field.mask(val.length > 14 ? celphoneMask[0] : celphoneMask[1], options);
+                           }
+                    });
+                }
+            }, 100);
         }
 
         function setMaskAtribute($el, atributes) {
