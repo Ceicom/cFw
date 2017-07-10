@@ -36,10 +36,19 @@
     citystate.start = function () {
         var that = this;
 
-        if (!localStorage.getItem('cfw_citst_states'))
-            that.getJson('states', null, function () {
-                that.dealSelects();
+        if (!localStorage.getItem('cfw_citst_states')) {
+            var haveSelects = false;
+
+            $('select[data-list]:not([data-list-loaded="true"])').each(function () {
+                if (haveSelects) return true;
+                if ($(this).attr('data-list') == 'states') haveSelects = true;
             });
+
+            if (haveSelects)
+                that.getJson('states', null, function () {
+                    that.dealSelects();
+                });
+        }
 
         if (localStorage.getItem('cfw_citst_states'))
             that.dealSelects();
