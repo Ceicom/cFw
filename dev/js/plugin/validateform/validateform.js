@@ -299,7 +299,7 @@
                     },
                     file: {
                         false: 'Campo obrigatório',
-                        file_size: 'Tamanho do arquivo excedeu {size}Mb',
+                        file_size: 'Arquivo maior que o permitido (limite {size}',
                         file_ext: 'Extensão do arquivo não permitida, envie: {ext}',
                     },
                     compare: {
@@ -325,7 +325,11 @@
 
                     switch (info[0]) {
                         case '{size}':
-                            nvalue = +$el.attr('data-validate-size')/1024;
+                            nvalue = +$el.attr('data-validate-size') / 1024;
+                            if (nvalue >= 1)
+                                nvalue = nvalue.toFixed(2) + 'MB)';
+                            else
+                                nvalue = $el.attr('data-validate-size') + 'KB)';
                             break;
                         case '{qtd}':
                             var d = $el.attr('data-validate-qtd').split(',');
