@@ -250,7 +250,7 @@
                     return true;
                 }
 
-                if (qtdSel)
+                if (qtdSel >= 0)
                     return qtdSel >= qtdMin && qtdSel <= qtdMax;
 
                 if (!qtdSel && $el.attr('data-validate-optional') == 'true')
@@ -277,6 +277,7 @@
         cfwValidaForm.prototype.warnCli = function (type, $el, situ) {
 
             if (situ != true) {
+
                 var msgs = {
                     required: {
                         false: 'Campo obrigatório'
@@ -329,7 +330,7 @@
                         case '{qtd}':
                             var d = $el.attr('data-validate-qtd').split(',');
                             nvalue = d[0];
-                            if (d[1]) nvalue += ' e no máximo ' + d[1];
+                            if (d[1] && d[1] != d[0]) nvalue += ' e no máximo ' + d[1];
                             break;
                         default:
                             nvalue = $el.attr('data-validate-' + info[0].replace(/[{}]/g, ''));
