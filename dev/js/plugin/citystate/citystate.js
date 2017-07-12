@@ -140,6 +140,14 @@
 
         var event = what == 'states' ? what : 'cities';
         $(document).trigger('cfw_' + event + '_loaded', [$el]);
+
+        this.chosenEvent($el);
+    }
+
+    citystate.chosenEvent = function ($el) {
+        var attr = $el.attr('data-chosen');
+        if (typeof attr !== typeof undefined && attr !== false)
+            $el.trigger('chosen:updated');
     }
 
     citystate.dealFilterUF = function ($el, data) {
@@ -208,6 +216,7 @@
           .html('<option value="" selected>Selecione uma cidade</option>');
 
         $(document).trigger('cfw_cities_loaded', [$el]);
+        this.chosenEvent($el);
     }
 
     // commonjs
