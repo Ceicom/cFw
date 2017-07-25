@@ -74,7 +74,7 @@
         <select id="estado1">
             <option>carregando...</option>
         </select>
-        <select id="cidade1">
+        <select id="cidade1" multiple>
             <option>carregando...</option>
         </select>
     </div>
@@ -290,8 +290,8 @@
 
     </script>
 
-    <script src="//src.inf.br/cfw/cfw.min.js"></script>
-    <!--<script src="/prod/cfw/cfw.min.js"></script>-->
+    <!--<script src="//src.inf.br/cfw/cfw.min.js"></script>-->
+    <script src="/prod/cfw/cfw.min.js"></script>
 
     <script>
         cfw.cmodal.init();
@@ -313,7 +313,8 @@
             filterStates: ['SC'],
             selectState: '#estado1',
             selectCity: '#cidade1',
-            initState: 'Santa CaTaRiNa'
+            initState: 'Santa CaTaRiNa',
+            initCity: 'Anitápolis,Abelardo Luz'
         });
 
         /**/

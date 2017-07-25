@@ -186,7 +186,11 @@
         var r = '',
             that = this,
             data = what == 'states' ? that.dealFilterUF($el, data) : data,
-            init = $el.attr('data-list-start') ? $el.attr('data-list-start').toLowerCase() : null;
+            init = $el.attr('data-list-start') ?
+                        $el.attr('data-list-start').split(',').length > 1 ?
+                            $el.attr('data-list-start').split(',') :
+                            $el.attr('data-list-start').toLowerCase() :
+                        null;
 
         $.each(data, function (k, v) {
 
@@ -198,7 +202,7 @@
                 dataEl += ' data-uf="' + k + '"';
             }
 
-            if (init == v.toLowerCase() || init == k.toString().toLowerCase())
+            if (init == v.toLowerCase() || init == k.toString().toLowerCase() || $.inArray(v, init) >= 0)
                 dataEl += ' selected';
 
             r += '<option ' + dataEl.toLowerCase() + ' value="' + item + '">' + item + '</option>';

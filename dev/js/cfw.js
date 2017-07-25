@@ -31,13 +31,13 @@
 
     // caminho
     cfw.pathFile = {
-        //config: '/prod/cfw/',
-        //plugin: '/prod/vendor/',
-        //json: '/prod/json/citystate/'
+        config: '/prod/cfw/',
+        plugin: '/prod/vendor/',
+        json: '/prod/json/citystate/'
 
-        config: '//src.inf.br/cfw/',
-        plugin: '//src.inf.br/vendor/',
-        json: '//src.inf.br/json/citystate/'
+        //config: '//src.inf.br/cfw/',
+        //plugin: '//src.inf.br/vendor/',
+        //json: '//src.inf.br/json/citystate/'
     }
 
     // get js
