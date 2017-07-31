@@ -1298,8 +1298,15 @@
         }, _this.s.backdropDuration + 50);
     };
 
-    $.fn.lightGallery = function(options) {
-        return this.each(function() {
+    $.fn.lightGallery = function (options) {
+
+        var singId = $(this).length === 1;
+
+        return this.each(function () {
+
+            if (!options.galleryId || !singId)
+                options.galleryId = $(this).index();
+
             if (!$.data(this, 'lightGallery')) {
                 $.data(this, 'lightGallery', new Plugin(this, options));
             } else {
