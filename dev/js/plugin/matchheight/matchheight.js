@@ -146,7 +146,7 @@
     matchHeight.version = '0.7.0';
     matchHeight._groups = [];
     matchHeight._throttle = 80;
-    matchHeight._maintainScroll = false;
+    //matchHeight._maintainScroll = false;
     matchHeight._beforeUpdate = null;
     matchHeight._afterUpdate = null;
     matchHeight._rows = _rows;
@@ -164,8 +164,8 @@
             rows = [$elements];
 
         // take note of scroll position
-        var scrollTop = $(window).scrollTop(),
-            htmlHeight = $('html').outerHeight(true);
+        //var scrollTop = $(window).scrollTop(),
+        //    htmlHeight = $('html').outerHeight(true);
 
         // get hidden parents
         var $hiddenParents = $elements.parents().filter(':hidden');
@@ -279,9 +279,14 @@
                 }
 
                 // set the height (accounting for padding and border)
-                $that.css(opts.property, (targetHeight - verticalPadding) + 'px');
+                $that
+                    .css(opts.property, (targetHeight - verticalPadding) + 'px')
+                    .addClass('matchHeight-started');
             });
+
         });
+
+        $(document).trigger('matchHeightDone');
 
         // revert hidden parents
         $hiddenParents.each(function () {
@@ -290,9 +295,9 @@
         });
 
         // restore scroll position if enabled
-        if (matchHeight._maintainScroll) {
-            $(window).scrollTop((scrollTop / htmlHeight) * $('html').outerHeight(true));
-        }
+        //if (matchHeight._maintainScroll) {
+        //    $(window).scrollTop((scrollTop / htmlHeight) * $('html').outerHeight(true));
+        //}
 
         return this;
     };
