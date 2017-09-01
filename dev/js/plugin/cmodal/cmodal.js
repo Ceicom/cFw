@@ -143,7 +143,6 @@
             if (type == 'img' && !$('.cfw-modal.for-img').length) {
                 $('body').append('<div class="cfw-modal for-img" hidden></div>');
             }
-
         });
     }
 
