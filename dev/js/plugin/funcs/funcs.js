@@ -54,7 +54,7 @@ var getUrlParameter = function(name) {
 var dealData = function (data) {
     var r = {};
     var date = data.split(' ');
-    var monthExt = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'movembro', 'dezembro'];
+    var monthExt = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 
     r.datetime = date[0].split('/').reverse().join('-');
     r.day = date[0].split('/')[0];
@@ -206,3 +206,43 @@ var arrayClean = function (array, deleteValue) {
 Array.prototype.clean = function (deleteValue) {
     return arrayClean(this, deleteValue);
 };
+
+
+/************************************************************/
+
+/*
+ * Limpa o array removendo valor apresentado
+ *
+ * @name        rewriteUrl
+ * @param       {String} nome do parametro
+ * @param       {String} valor a ser inserido
+ * @param       {Bool} concat, concatena valores de um mesmo tipo de parametro
+ * @return      {String} retorna a url concatenda
+ */
+var rewriteUrl = function(item, val, concat) {
+    var r = [];
+    var done = false;
+
+    if (location.search) {
+        var allItens = location.search.slice(1).split('&');
+        var index = 0;
+
+        $.each(allItens, function (k, v) {
+            var key = v.split('=')[0];
+            var value = v.split('=')[1].split(',');
+
+            if (concat && key == item && value.indexOf(val.toString()) < 0) {
+                r[index] = item + '=' + value + ',' + val;
+                done = true;
+            }
+            else if (key != item)
+                r.push(v);
+
+            index++;
+        });
+    }
+
+    if (!done) r.push(item + '=' + val);
+
+    return location.pathname + '?' + r.join('&');
+}
