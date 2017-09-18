@@ -6,6 +6,10 @@
         cfwValidaForm.prototype.init = function () {
             var that = this;
             this.dealActions();
+            
+            $(document).on('cfw-falseSubmit',function(){
+                $('body').find('[type="submit"]').trigger();
+            });
 
             $('body').find('[type="submit"]').on('click', function (e) {
 
