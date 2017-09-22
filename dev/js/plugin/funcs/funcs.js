@@ -246,3 +246,62 @@ var rewriteUrl = function(item, val, concat) {
 
     return location.pathname + '?' + r.join('&');
 }
+
+
+/************************************************************/
+
+/*
+ * Validação email válido
+ *
+ * @name        validaMail
+ * @param       {String} email a ser validado
+ * @return      {Bool} válido ou não o email
+ */
+var validaMail = function (email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+
+/************************************************************/
+
+/*
+ * Validação URL válida
+ *
+ * @name        validaURL
+ * @param       {String} url a ser validada
+ * @return      {Bool} válida ou não a url
+ */
+var validaURL = function (url) {
+    var r = /^(http|https):\/\/[^ "]+$/;
+    return r.test(url);
+}
+
+
+/************************************************************/
+
+/*
+ * Validação YOUTUBE url
+ *
+ * @name        validaYoutube
+ * @param       {String} url a ser validada
+ * @return      {String} retorna o ID do vídeo do youtube ou 'false' se não for valido
+ */
+var validaYoutube = function(link){
+    var match = link.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/);
+    return (match && match[7].length == 11) ? match[7] : false;
+};
+
+
+/************************************************************/
+
+/*
+ * Remove Atributos HTML
+ *
+ * @name        attrRemove
+ * @param       {String} texto o qual terá todos atributos do html limpos
+ * @return      {String} retorna o texto com a estrutura html intacta porém sem atributos (styles, etc...)
+ */
+var attrRemove = function(html){
+    return html.replace(/<\s*([a-z][a-z0-9]*)\s.*?>/ig, '<$1>');
+};
