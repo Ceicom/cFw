@@ -88,11 +88,11 @@
 
             // street
             var street = data.rua || '';
-            el_street.val(street);
+            el_street.val(street).trigger('input');
 
             // district
             var district = data.bairro || '';
-            el_district.val(district);
+            el_district.val(district).trigger('input');
 
             // state
             var state = data.estado || 0;
