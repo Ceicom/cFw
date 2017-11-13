@@ -3,7 +3,7 @@ Some codes that will speed up our development;
 
 ### Components
 - [analytics](https://github.com/Ceicom/cFw/tree/master/dev/js/config/analytics)
-- cmodal
+- [cmodal](https://github.com/Ceicom/cFw/blob/master/dev/js/config/cmodal)
 - fallback console
 - loadcss
 - [lightgallery](https://github.com/Ceicom/cFw/tree/master/dev/js/config/lightgallery)
