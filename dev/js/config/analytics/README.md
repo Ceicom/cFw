@@ -23,4 +23,6 @@ cfw.analytics.init('UA-XXXX-XX');
 cfw.analytics.init('UA-XXXX-XX');
 ```
 
-**Obs:** é necessário o jQuery para iniciar o cFw.
+**Obs1:** é necessário o jQuery para iniciar o cFw.
+
+**Obs2:** utilizando a versão antiga do analytics sem o tagmanager.

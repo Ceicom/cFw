@@ -116,7 +116,7 @@
     function initLayout() {
         $('[data-modal]').each(function () {
 
-            var formatosImagem = ['jpg', 'peg', 'png', 'gif', 'bmp'];
+            var formatosImagem = ['jpg', 'peg', 'png', 'gif', 'bmp', 'iff'];
             var type = 'txt';
             var img = $(this).attr('href') || $(this).attr('data-modal-img');
             if(img) type = $.inArray(img.slice(-3), formatosImagem) >= 0 ? 'img' : 'txt';

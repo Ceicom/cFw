@@ -8,6 +8,7 @@
                         'citystate',        // lista cidade estado      [ceicom]
                         'cmodal',           // modal                    [ceicom]
                         'dotdotdot',        // corta texto insere ...   [https://github.com/FrDH/jQuery.dotdotdot]
+                        'fancybox',         // modal, galeria, etc..    [http://fancyapps.com/fancybox/3/]
                         'form',             // atalho modulos forms     [ceicom]
                         'lightgallery',     // galeria fotos            [https://github.com/sachinchoolur/lightGallery]
                         'funcs',            // funções úteis            [ceicom]
@@ -31,13 +32,13 @@
 
     // caminho
     cfw.pathFile = {
-        config: '/prod/cfw/',
-        plugin: '/prod/vendor/',
-        json: '/prod/json/citystate/'
+        //config: '/prod/cfw/',
+        //plugin: '/prod/vendor/',
+        //json: '/prod/json/citystate/'
 
-        //config: '//src.inf.br/cfw/',
-        //plugin: '//src.inf.br/vendor/',
-        //json: '//src.inf.br/json/citystate/'
+        config: '//src.inf.br/cfw/',
+        plugin: '//src.inf.br/vendor/',
+        json: '//src.inf.br/json/citystate/'
     }
 
     // get js

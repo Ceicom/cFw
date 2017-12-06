@@ -7,7 +7,7 @@
 
         var config = {
             element: null,
-            watch: 'window'
+            watch: true
         };
 
         var options = $.extend(config, options);

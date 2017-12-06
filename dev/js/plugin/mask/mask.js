@@ -1,7 +1,8 @@
 /**
  * jquery.mask.js
- * @version: v1.14.11
+ * @version: v1.14.12
  * @author: Igor Escobar
+ * https://github.com/igorescobar/jQuery-Mask-Plugin
  *
  * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
  *
@@ -41,13 +42,13 @@
 // https://github.com/umdjs/umd/blob/master/jqueryPluginCommonjs.js
 (function (factory, jQuery, Zepto) {
 
-    //if (typeof define === 'function' && define.amd) {
-    //    define(['jquery'], factory);
-    //} else if (typeof exports === 'object') {
-    //    module.exports = factory(require('jquery'));
-    //} else {
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('jquery'));
+    } else {
         factory(jQuery || Zepto);
-    //}
+    }
 
 }(function ($) {
 
@@ -228,11 +229,10 @@
                         }
                     }
 
+                    // if the cursor is at the end keep it there
                     if (caretPosNew > oldValL) {
-                        // if the cursor is at the end keep it there
-                        caretPosNew = newValL;
-                    }
-                    else if (caretPosOld >= caretPosNew && caretPosOld !== oldValL) {
+                        caretPosNew = newValL * 10;
+                    } else if (caretPosOld >= caretPosNew && caretPosOld !== oldValL) {
                         if (!p.maskDigitPosMapOld[caretPosNew]) {
                             var caretPos = caretPosNew;
                             caretPosNew -= maskDigitsBeforeCaretAllOld - maskDigitsBeforeCaretAll;
@@ -259,6 +259,8 @@
                     var newVal = p.getMasked(),
                         caretPos = p.getCaret();
 
+                    // this is a compensation to devices/browsers that don't compensate
+                    // caret positioning the right way
                     setTimeout(function () {
                         p.setCaret(p.calculateCaretPosition());
                     }, 10);

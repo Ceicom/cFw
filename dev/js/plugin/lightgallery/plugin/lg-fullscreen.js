@@ -1,3 +1,7 @@
+/*! lg-fullscreen - v1.0.1 - 2016-09-30
+* http://sachinchoolur.github.io/lightGallery
+* Copyright (c) 2016 Sachin N; Licensed GPLv3 */
+
 (function() {
 
     'use strict';

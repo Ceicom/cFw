@@ -1,5 +1,8 @@
+/*! lg-autoplay - v1.0.4 - 2017-03-28
+* http://sachinchoolur.github.io/lightGallery
+* Copyright (c) 2017 Sachin N; Licensed GPLv3 */
 
-(function() {
+(function () {
 
     'use strict';
 
@@ -16,7 +19,7 @@
      * Creates the autoplay plugin.
      * @param {object} element - lightGallery element
      */
-    var Autoplay = function(element) {
+    var Autoplay = function (element) {
 
         this.core = $(element).data('lightGallery');
 
@@ -49,7 +52,7 @@
         return this;
     };
 
-    Autoplay.prototype.init = function() {
+    Autoplay.prototype.init = function () {
         var _this = this;
 
         // append autoplay controls
@@ -67,11 +70,13 @@
 
         // Start autoplay
         if (_this.core.s.autoplay) {
-            _this.startlAuto();
+            _this.$el.one('onSlideItemLoad.lg.tm', function () {
+                _this.startlAuto();
+            });
         }
 
         // cancel interval on touchstart and dragstart
-        _this.$el.on('onDragstart.lg.tm touchstart.lg.tm', function() {
+        _this.$el.on('onDragstart.lg.tm touchstart.lg.tm', function () {
             if (_this.interval) {
                 _this.cancelAuto();
                 _this.canceledOnTouch = true;
@@ -79,7 +84,7 @@
         });
 
         // restore autoplay if autoplay canceled from touchstart / dragstart
-        _this.$el.on('onDragend.lg.tm touchend.lg.tm onSlideClick.lg.tm', function() {
+        _this.$el.on('onDragend.lg.tm touchend.lg.tm onSlideClick.lg.tm', function () {
             if (!_this.interval && _this.canceledOnTouch) {
                 _this.startlAuto();
                 _this.canceledOnTouch = false;
@@ -88,13 +93,13 @@
 
     };
 
-    Autoplay.prototype.progress = function() {
+    Autoplay.prototype.progress = function () {
 
         var _this = this;
         var _$progressBar;
         var _$progress;
 
-        _this.$el.on('onBeforeSlide.lg.tm', function() {
+        _this.$el.on('onBeforeSlide.lg.tm', function () {
 
             // start progress bar animation
             if (_this.core.s.progressBar && _this.fromAuto) {
@@ -103,7 +108,7 @@
                 if (_this.interval) {
                     _$progress.removeAttr('style');
                     _$progressBar.removeClass('lg-start');
-                    setTimeout(function() {
+                    setTimeout(function () {
                         _$progress.css('transition', 'width ' + (_this.core.s.speed + _this.core.s.pause) + 'ms ease 0s');
                         _$progressBar.addClass('lg-start');
                     }, 20);
@@ -121,14 +126,14 @@
     };
 
     // Manage autoplay via play/stop buttons
-    Autoplay.prototype.controls = function() {
+    Autoplay.prototype.controls = function () {
         var _this = this;
         var _html = '<span class="lg-autoplay-button lg-icon"></span>';
 
         // Append autoplay controls
         $(this.core.s.appendAutoplayControlsTo).append(_html);
 
-        _this.core.$outer.find('.lg-autoplay-button').on('click.lg', function() {
+        _this.core.$outer.find('.lg-autoplay-button').on('click.lg', function () {
             if ($(_this.core.$outer).hasClass('lg-show-autoplay')) {
                 _this.cancelAuto();
                 _this.core.s.fourceAutoplay = false;
@@ -142,14 +147,14 @@
     };
 
     // Autostart gallery
-    Autoplay.prototype.startlAuto = function() {
+    Autoplay.prototype.startlAuto = function () {
         var _this = this;
 
         _this.core.$outer.find('.lg-progress').css('transition', 'width ' + (_this.core.s.speed + _this.core.s.pause) + 'ms ease 0s');
         _this.core.$outer.addClass('lg-show-autoplay');
         _this.core.$outer.find('.lg-progress-bar').addClass('lg-start');
 
-        _this.interval = setInterval(function() {
+        _this.interval = setInterval(function () {
             if (_this.core.index + 1 < _this.core.$items.length) {
                 _this.core.index++;
             } else {
@@ -157,12 +162,12 @@
             }
 
             _this.fromAuto = true;
-            _this.core.slide(_this.core.index, false, false);
+            _this.core.slide(_this.core.index, false, false, 'next');
         }, _this.core.s.speed + _this.core.s.pause);
     };
 
     // cancel Autostart
-    Autoplay.prototype.cancelAuto = function() {
+    Autoplay.prototype.cancelAuto = function () {
         clearInterval(this.interval);
         this.interval = false;
         this.core.$outer.find('.lg-progress').removeAttr('style');
@@ -170,7 +175,7 @@
         this.core.$outer.find('.lg-progress-bar').removeClass('lg-start');
     };
 
-    Autoplay.prototype.destroy = function() {
+    Autoplay.prototype.destroy = function () {
 
         this.cancelAuto();
         this.core.$outer.find('.lg-progress-bar').remove();

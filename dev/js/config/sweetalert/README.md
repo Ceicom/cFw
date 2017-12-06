@@ -1,5 +1,11 @@
 ﻿# SweetAlert
 
+### NÃO VAMOS ATUALIZAR ESTE PARA A VERSÃO 2, MUITAS MUDANÇAS:
+- [Migration from SweetAlert to SweetAlert2](https://github.com/limonte/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2)
+- [Upgrading from 1.X](https://sweetalert.js.org/guides/#upgrading-from-1x)
+
+---
+
 Um jeito diferente de apresentar 'alert()'
 > Documentação original do [SweetAlert](https://github.com/t4t5/sweetalert)
 

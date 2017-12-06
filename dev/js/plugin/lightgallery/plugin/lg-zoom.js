@@ -1,3 +1,7 @@
+/*! lg-zoom - v1.1.0 - 2017-08-08
+* http://sachinchoolur.github.io/lightGallery
+* Copyright (c) 2017 Sachin N; Licensed GPLv3 */
+
 (function() {
 
     'use strict';
@@ -222,13 +226,9 @@
         });
 
         // Drag option after zoom
-        if (!_this.core.isTouch) {
-            _this.zoomDrag();
-        }
+        _this.zoomDrag();
 
-        if (_this.core.isTouch) {
-            _this.zoomSwipe();
-        }
+        _this.zoomSwipe();
 
     };
 

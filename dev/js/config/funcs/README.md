@@ -16,6 +16,11 @@ capitalize('boa ventura de são roque', true)
 //Boa Ventura de São Roque
 ```
 
+```
+capitalize('boa ventura de são roque', true, 1)
+//Boa Ventura De São Roque
+```
+
 ---
 
 ### clearString
@@ -157,4 +162,104 @@ console.info( wSize('w') );
 ```
 console.info( wSize('h') );
 //ex: 1080
+```
+
+---
+
+### arrayClean
+
+Limpa o array removendo valor apresentado
+
+```
+console.info(arrayClean(['a1','a2','a3'], 'a3'));
+//ex: ['a1','a2']
+```
+
+---
+
+### rewriteUrl
+
+Gera uma nova QueryString com base nos parametros repassados
+
+* @param       {String} nome do parametro
+* @param       {String} valor a ser inserido
+* @param       {Bool} concat, concatena valores de um mesmo tipo de parametro
+* @return      {String} retorna a url concatenda
+
+**sem querystring existente**
+
+```
+rewriteUrl('novoitem', 'novovalor');
+//querystring: '';
+//retorna: ?novoitem=novovalor
+```
+
+**com querystring existente**
+
+```
+rewriteUrl('novoitem', 'novovalor');
+//querystring: ?item=valoritem;
+//retorna: ?item=valoritem&novoitem=novovalor
+```
+
+**sem concatenar valor**
+
+```
+rewriteUrl('novoitem', 'novovalor');
+//querystring: ?novoitem=valorantigo;
+//retorna: ?novoitem=novovalor
+```
+
+**concatenando valor**
+
+```
+rewriteUrl('novoitem', 'novovalor');
+//querystring: ?novoitem=valorantigo;
+//retorna: ?novoitem=valorantigo,novovalor
+```
+
+### validaMail
+
+valida se email é valido ou não
+
+```
+console.info(validaMail('nome@dominio.com.br'));
+//retorna true;
+```
+
+```
+console.info(validaMail('nome.com.br'));
+//retorna false;
+```
+
+---
+
+### validaURL
+
+valida se url inicia com http ou https
+
+```
+console.info(validaURL('www.dominio.com.br'));
+//retorna false;
+```
+
+```
+console.info(validaURL('http://www.dominio.com.br'));
+//retorna true;
+```
+
+
+
+### validaYoutube
+
+valida se a url informada contém um ID válido de video do youtube
+
+```
+console.info(validaYoutube('www.youtube.com/watch?v=HTCnu6bl2-Y'));
+//retorna 'HTCnu6bl2-Y';
+```
+
+```
+console.info(validaURL('www.globo.com'));
+//retorna false;
 ```

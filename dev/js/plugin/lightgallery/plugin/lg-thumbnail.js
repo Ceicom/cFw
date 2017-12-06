@@ -1,3 +1,7 @@
+/*! lg-thumbnail - v1.1.0 - 2017-08-08
+* http://sachinchoolur.github.io/lightGallery
+* Copyright (c) 2017 Sachin N; Licensed GPLv3 */
+
 (function() {
 
     'use strict';
@@ -9,6 +13,7 @@
         currentPagerPosition: 'middle',
 
         thumbWidth: 100,
+        thumbHeight: '80px',
         thumbContHeight: 100,
         thumbMargin: 5,
 
@@ -44,6 +49,10 @@
         this.thumbTotalWidth = (this.core.$items.length * (this.core.s.thumbWidth + this.core.s.thumbMargin));
         this.thumbIndex = this.core.index;
 
+        if (this.core.s.animateThumb) {
+            this.core.s.thumbHeight = '100%';
+        }
+
         // Thumbnail animation value
         this.left = 0;
 
@@ -66,12 +75,12 @@
             }
 
             this.build();
-            if (this.core.s.animateThumb) {
-                if (this.core.s.enableThumbDrag && !this.core.isTouch && this.core.doCss()) {
+            if (this.core.s.animateThumb && this.core.doCss()) {
+                if (this.core.s.enableThumbDrag) {
                     this.enableThumbDrag();
                 }
 
-                if (this.core.s.enableThumbSwipe && this.core.isTouch && this.core.doCss()) {
+                if (this.core.s.enableThumbSwipe) {
                     this.enableThumbSwipe();
                 }
 
@@ -91,7 +100,7 @@
         var vimeoErrorThumbSize = '';
         var $thumb;
         var html = '<div class="lg-thumb-outer">' +
-            '<div class="lg-thumb group">' +
+            '<div class="lg-thumb lg-group">' +
             '</div>' +
             '</div>';
 
@@ -154,7 +163,7 @@
                 thumbImg = thumb;
             }
 
-            thumbList += '<div data-vimeo-id="' + vimeoId + '" class="lg-thumb-item" style="width:' + _this.core.s.thumbWidth + 'px; margin-right: ' + _this.core.s.thumbMargin + 'px"><img src="' + thumbImg + '" /></div>';
+            thumbList += '<div data-vimeo-id="' + vimeoId + '" class="lg-thumb-item" style="width:' + _this.core.s.thumbWidth + 'px; height: ' + _this.core.s.thumbHeight + '; margin-right: ' + _this.core.s.thumbMargin + 'px"><img src="' + thumbImg + '" /></div>';
             vimeoId = '';
         }
 
@@ -207,7 +216,7 @@
                 // Go to slide if browser does not support css transitions
                 if ((_this.thumbClickable && !_this.core.lgBusy) || !_this.core.doCss()) {
                     _this.core.index = _$this.index();
-                    _this.core.slide(_this.core.index, false, true);
+                    _this.core.slide(_this.core.index, false, true, false);
                 }
             }, 50);
         });

@@ -1,7 +1,5 @@
 # CModal
 
-draft documentation
-
 ### img
 
 * _data-modal-url_ é opcional
