@@ -42,13 +42,13 @@
 // https://github.com/umdjs/umd/blob/master/jqueryPluginCommonjs.js
 (function (factory, jQuery, Zepto) {
 
-    if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('jquery'));
-    } else {
+    //if (typeof define === 'function' && define.amd) {
+    //    define(['jquery'], factory);
+    //} else if (typeof exports === 'object') {
+    //    module.exports = factory(require('jquery'));
+    //} else {
         factory(jQuery || Zepto);
-    }
+    //}
 
 }(function ($) {
 
