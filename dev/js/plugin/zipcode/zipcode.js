@@ -49,14 +49,22 @@
             });
 
             r.then(function (data) {
-                that.lastZip = cep;
 
-                that
-                  .dealEl($el)
-                  .putInfo(data, group);
+                if (data.erro) {
+                    $el.trigger('zipCodeError');
+                    that.dealEl(group);
+                    console.error(data.erro);
+                }
+                else {
+                    that.lastZip = cep;
 
+                    that
+                      .dealEl($el)
+                      .putInfo(data, group);
+                }
             },
             function (jqXHR) {
+                $el.trigger('zipCodeError');
                 that.dealEl(group);
                 console.error(jqXHR.statusText);
             });
