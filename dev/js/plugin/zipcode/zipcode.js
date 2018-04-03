@@ -97,20 +97,28 @@
             // street
             var street = data.rua || '';
             el_street.val(street).trigger('input');
+            $(document).trigger('cfw_zipcode_street_inserted')
 
             // district
             var district = data.bairro || '';
             el_district.val(district).trigger('input');
+            $(document).trigger('cfw_zipcode_district_inserted')
 
             // state
             var state = data.estado || 0;
             if (el_state.is('[data-list]'))    this.callCityState(el_state, state);
-            if (!el_state.is('[data-list]'))   el_state.val(state);
+            if (!el_state.is('[data-list]')) {
+                el_state.val(state);
+                $(document).trigger('cfw_zipcode_state_inserted')
+            }
 
             // city
             var city = data.cidade || 0;
             if (el_city.is('[data-list]'))    this.callCityState(el_city, city);
-            if (!el_city.is('[data-list]'))   el_city.val(city);
+            if (!el_city.is('[data-list]')) {
+                el_city.val(city);
+                $(document).trigger('cfw_zipcode_city_inserted')
+            }
 
             return this;
         }
