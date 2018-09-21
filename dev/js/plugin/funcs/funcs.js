@@ -8,9 +8,9 @@
  */
 
 var wSize = function (type) {
-    if (type == 'h') return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-    if (type == 'w') return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-}
+    if (type === 'h') return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    if (type === 'w') return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+};
 
 /************************************************************/
 
@@ -47,7 +47,7 @@ var getUrlParameter = function(name) {
  *                  minute      // nº minuto -> 10
  *                  second      // nº segundos -> 00
  *              }
- * @sample      var data = 16/12/2016 14:12:00');
+ * @sample      var data = '16/12/2016 14:12:00';
  *              console.info(data.monthExt); // imprime Dezembro
  */
 
@@ -67,11 +67,73 @@ var dealData = function (data) {
         r.fullhour = date[1].split(':')[0] + ':' + date[1].split(':')[1];
         r.hour = date[1].split(':')[0];
         r.minute = date[1].split(':')[1];
-        r.second = date[1].split(':')[2];
+        r.second = date[1].split(':')[2] || '00';
     }
 
     return r;
-}
+};
+
+
+/************************************************************/
+
+/*
+ * Transforma datas do padrão C#/entity para pt-br
+ *
+ * @name        dealDataEntity
+ * @param       {Obj}
+ * @param       {Obj.data}      {String}    Data que será convertida, deve ser enviada seguindo os padrões: 2014-10-05T12:20 ou 2014-10-05
+ * @param       {Obj.onlyDate}  {Bolean}    Retornar somente data? removendo horas?
+ * @param       {Obj.hourAbrev} {String}    Abreviação da hora, default = h;
+ * @param       {Obj.detail}    {Bolean}    Retornar data tratada pela função dealData? ignora parametros 'hourAbrev'
+ *  
+ * @return      {String} data convertida
+ * @sample      console.info(dealDataEntity({ data: '2014-10-05T12:20' }));                     // imprime 05/10/2014 12:20h
+ * @sample      console.info(dealDataEntity({ data: '2014-10-05T12:20', onlyDate: true }));     // imprime 05/10/2014
+ * @sample      console.info(dealDataEntity({ data: '2014-10-05T12:20', hourAbrev: 'hrs' }));   // imprime 05/10/2014 12:20hrs
+ * @sample      console.info(dealDataEntity({ data: '2014-10-05T12:20', detail: true }));       // ver retorno função dealData
+ */
+var dealDataEntity = function (params) {
+    // configurações
+    var data = params.data,
+        onlyDate = params.onlyDate,
+        hourAbrev = params.hourAbrev,
+        detail = params.detail;
+
+    // geral
+    var hourAb = hourAbrev || 'h',
+        info = data.split('T'),
+        date = '';
+
+    // data
+    var dateInfo = info[0] ? info[0].split('-') : [],
+        day = dateInfo[2],
+        month = dateInfo[1],
+        year = dateInfo[0];
+
+    // hora
+    var hourInfo = info[1] ? info[1].split(':') : [],
+        hour = hourInfo[0],
+        min = hourInfo[1];
+
+    // retorno data
+    if (+day && +month && +year > 1)
+        date = day + '/' + month + '/' + year;
+
+    // retorno hora
+    if (!onlyDate && +hour)
+        date += ' ' + hour + ':' + min + hourAb;
+
+    // retorno detalhes
+    if (detail) {
+        if (!onlyDate && +hour)
+            date = date.replace(hourAb, '');
+
+        return dealData(date);
+    }
+    // retorno
+    else
+        return date;
+};
 
 /************************************************************/
 
@@ -85,7 +147,7 @@ var dealData = function (data) {
  * @sample      console.info(clearString('ação.c|c.é')); // imprime acaoc-ce
  */
 
-var clearString = function(string) {
+var clearString = function (string) {
     var retorno = string.toLowerCase();
     // faz as substituições dos acentos
     retorno = retorno.replace(/[á|ã|â|à]/gi, "a");
@@ -104,7 +166,7 @@ var clearString = function(string) {
     retorno = retorno.replace(/(\-)\1+/gi, "-");
 
     return retorno;
-}
+};
 
 /************************************************************/
 
@@ -136,7 +198,7 @@ var capitalizeStr = function (string, eachWord, limit) {
         str = str.charAt(0).toUpperCase() + str.slice(1);
 
     return str;
-}
+};
 
 /************************************************************/
 
@@ -163,12 +225,14 @@ var capitalizeStr = function (string, eachWord, limit) {
 
 var cookies = {
     create: function (name, value, days) {
+        var expires = "";
+
         if (days) {
             var date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            var expires = "; expires=" + date.toGMTString();
+            expires = "; expires=" + date.toGMTString();
         }
-        else var expires = "";
+
         document.cookie = name + "=" + value + expires + "; path=/";
     },
 
@@ -177,8 +241,8 @@ var cookies = {
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
         }
         return null;
     },
@@ -186,7 +250,7 @@ var cookies = {
     erase: function (name) {
         this.create(name, "", -1);
     }
-}
+};
 
 /************************************************************/
 
@@ -203,7 +267,7 @@ var cookies = {
 
 var arrayClean = function (array, deleteValue) {
     for (var i = 0; i < array.length; i++) {
-        if (array[i].toLowerCase() == deleteValue.toLowerCase()) {
+        if (array[i].toLowerCase() === deleteValue.toLowerCase()) {
             array.splice(i, 1);
             i--;
         }
@@ -227,7 +291,7 @@ Array.prototype.clean = function (deleteValue) {
  * @param       {Bool} concat, concatena valores de um mesmo tipo de parametro
  * @return      {String} retorna a url concatenda
  */
-var rewriteUrl = function(item, val, concat) {
+var rewriteUrl = function (item, val, concat) {
     var r = [];
     var done = false;
 
@@ -239,11 +303,11 @@ var rewriteUrl = function(item, val, concat) {
             var key = v.split('=')[0];
             var value = v.split('=')[1].split(',');
 
-            if (concat && key == item && value.indexOf(val.toString()) < 0) {
+            if (concat && key === item && value.indexOf(val.toString()) < 0) {
                 r[index] = item + '=' + value + ',' + val;
                 done = true;
             }
-            else if (key != item)
+            else if (key !== item)
                 r.push(v);
 
             index++;
@@ -253,7 +317,7 @@ var rewriteUrl = function(item, val, concat) {
     if (!done) r.push(item + '=' + val);
 
     return location.pathname + '?' + r.join('&');
-}
+};
 
 
 /************************************************************/
@@ -268,7 +332,7 @@ var rewriteUrl = function(item, val, concat) {
 var validaMail = function (email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
-}
+};
 
 
 /************************************************************/
@@ -283,7 +347,7 @@ var validaMail = function (email) {
 var validaURL = function (url) {
     var r = /^(http|https):\/\/[^ "]+$/;
     return r.test(url);
-}
+};
 
 
 /************************************************************/
@@ -297,8 +361,49 @@ var validaURL = function (url) {
  */
 var validaYoutube = function(link){
     var match = link.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/);
-    return (match && match[7].length == 11) ? match[7] : false;
+    return (match && match[7].length === 11) ? match[7] : false;
 };
 
 
 /************************************************************/
+
+/*
+ * Adiciona link fancybox em conteudo dinamico (ex: editor de texto)
+ *
+ * @name        tagNewsContent
+ * @param       {Obj}
+ * @param       {Obj.wrapper}   {String}    Seletor Jquery do Elemento que receberá o ajuste do fancybox
+ *
+ * @return      {Empty}
+ * @sample      console.info(tagNewsContent({ wrapper: $('.elemento') }));
+ */
+
+var tagNewsContent = function (params) {
+    var wrapper = params.wrapper || $('.news-content');
+
+    // função adiciona link ao redor
+    var exec = function (el) {
+        var src = el.tagName() === 'img' ? el.attr('src') : el.find('img').attr('src');
+        el.wrap('<a data-fancybox="group" href="' + src + '"></a>');
+    };
+
+    // adiciona link nas imagens sem legenda
+    wrapper.find('img').each(function () {
+        if ($(this).parent().tagName() !== 'figure' && $(this).parent().tagName() !== 'a')
+            exec($(this));
+    });
+
+    // adiciona link nas imagens com legenda
+    wrapper.find('figure').each(function () {
+        if ($(this).parent().tagName() !== 'a' && !$(this).find('a').length)
+            exec($(this));
+    });
+
+    // fallback admins antigos (conteudos ainda existentes)
+    wrapper.find('.lightbox').attr('data-fancybox', 'group');
+};
+
+// função para recuperar tag name
+$.fn.tagName = function () {
+    return this.prop("tagName").toLowerCase();
+};
