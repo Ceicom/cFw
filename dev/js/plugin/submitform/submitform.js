@@ -58,10 +58,19 @@
             var formInfo = $('form').serialize().replace(/\+/g, ' ').split('&');
 
             if (inputFile.length) {
-
                 inputFile.each(function () {
-                    if ($(this)[0].files.length)
-                        returnData.append($(this).attr('name'), $(this)[0].files[0]);
+                    var input = $(this)[0],
+                        name = $(this).attr('name');
+
+                    if (input.files.length) {
+
+                        if ($(this).attr('multiple'))
+                            Array.from(input.files).forEach(function(file){
+                                returnData.append(name, file);
+                            });
+                        else
+                            returnData.append(name, input.files[0]);
+                    }
                 });
             }
 
