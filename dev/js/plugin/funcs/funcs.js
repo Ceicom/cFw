@@ -359,9 +359,11 @@ var validaURL = function (url) {
  * @param       {String} url a ser validada
  * @return      {String} retorna o ID do vídeo do youtube ou 'false' se não for valido
  */
-var validaYoutube = function(link){
-    var match = link.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/);
-    return (match && match[7].length === 11) ? match[7] : false;
+var validaYoutube = function (link) {
+    var regex = /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/g,
+        match = regex.exec(link);
+
+    return match && match[1].length === 11 ? match[1] : false;
 };
 
 
