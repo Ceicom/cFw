@@ -95,7 +95,7 @@
             email: function ($el) {
                 var val = $el.val() || '';
                 return this.checkOptional($el, function () {
-                    var er = new RegExp(/^[A-z0-9_\-\.]+@[A-z0-9_\-\.]{2,}\.[A-z0-9]{2,}(\.[A-z0-9])?$/);
+                    var er = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([A-z\-0-9]+\.)+[A-z]{2,}))$/g);
                     return !!er.test(val.trim());
                 });
             },
