@@ -126,6 +126,12 @@
                 if ($(this).val() == 0)
                     that.disableCities($el);
             }
+
+            $(document).trigger('citystate:change', ['state', $(this)]);
+        });
+
+        $('[data-list="cities"]').on('change', function (e) {
+            $(document).trigger('citystate:change', ['cities', $(this)]);
         });
 
     }
