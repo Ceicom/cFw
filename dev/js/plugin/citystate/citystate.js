@@ -127,11 +127,11 @@
                     that.disableCities($el);
             }
 
-            $(document).trigger('citystate:change', ['state', $(this)]);
+            $(document).trigger('citystate:change', ['states', e.currentTarget, $(this).val(), $(this).attr('data-list-group') ]);
         });
 
         $('[data-list="cities"]').on('change', function (e) {
-            $(document).trigger('citystate:change', ['cities', $(this)]);
+            $(document).trigger('citystate:change', ['cities', e.currentTarget, $(this).val(), $(this).attr('data-list-group')]);
         });
 
     }
