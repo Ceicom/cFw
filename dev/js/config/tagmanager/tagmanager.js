@@ -13,9 +13,7 @@
                 if (cfw.loadedJS[plugin] == 'loaded') {
                     clearInterval(si);
 
-                    var tm = new TagManager(idGTM);
-                    tm.headScript();
-                    tm.bodyScript();
+                    new TagManager(idGTM).init();
                 }
             }, 100);
 

@@ -3,7 +3,20 @@
 
     /* exported */
     function TagManager(idGTM) {
-        this.idGTM = idGTM;
+        var me = this;
+
+        me.idGTM = idGTM;
+
+        return me;
+    }
+
+    TagManager.prototype.init = function () {
+        var me = this;
+
+        me.headScript();
+        me.bodyScript();
+
+        return me;
     }
 
     TagManager.prototype.headScript = function () {
