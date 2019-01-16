@@ -22,6 +22,7 @@
                         'validateform',     // validação formulário     [ceicom]
                         'validateformdata', // validação formData       [ceicom]
                         'zipcode',          // completa end pelo cep    [ceicom]
+                        'tagmanager'        // tagmanager do google     [https://tagmanager.google.com/]
     ];
 
     var cfwCore     = function () { };      // core
