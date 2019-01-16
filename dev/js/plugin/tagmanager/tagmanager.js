@@ -20,6 +20,10 @@
     }
 
     TagManager.prototype.headScript = function () {
+        // needed for the GTM event
+        window['dataLayer'] = window['dataLayer'] || [];
+        window['dataLayer'].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+
         var script = document.createElement('script');
         var firstScript = document.getElementsByTagName('script')[0];
 
