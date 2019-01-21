@@ -75,6 +75,7 @@
         var bodyClass = 'modal-loaded';
 
         if ($el.attr('data-modal-lock') != 'false') bodyClass += ' modal-open';
+        if ($el.attr('data-modal-backdrop-closable') != 'false') bodyClass += ' modal-backdrop-closable';
 
         _.wrapper.fadeIn('fast', function () {
             _.body.addClass(bodyClass);
@@ -160,10 +161,14 @@
     $(document).on('click', function (e) {
         var $el = $(e.target);
 
-        var close = $el.hasClass('js-close-modal') ? true :
-                    !$el.closest('.cfw-modal__conteudo').length && !$el.closest('.sweet-alert').length ? true : false;
+        var close = $el.hasClass('js-close-modal');
 
-        if (close && !$('body').hasClass('modal-loaded')) close = false;
+        if (!close) {
+            close = !$el.closest('.cfw-modal__conteudo').length && !$el.closest('.sweet-alert').length ? true : false;
+
+            if (close && !$('body').hasClass('modal-loaded')) close = false;
+            if (close && !$('body').hasClass('modal-backdrop-closable')) close = false;
+        }
 
         if ($('.cfw-modal:visible').length && close) $('.cfw-modal:visible').trigger('close');
     });
