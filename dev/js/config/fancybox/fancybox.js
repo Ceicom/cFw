@@ -13,18 +13,15 @@
 
         var options = $.extend(config, options);
 
-        if (options.element) {
+        // devido a elementos dinamicos (que virão no futuro) :P
+        options.selector = options.element || '[data-fancybox]';
 
-            // devido a elementos dinamicos (que virão no futuro) :P
-            options.selector = options.element;
-
-            var si = setInterval(function () {
-                if (cfw.loadedJS[plugin] == 'loaded') {
-                    clearInterval(si);
-                    $().fancybox(options);
-                }
-            }, 100);
-        }
+        var si = setInterval(function () {
+            if (cfw.loadedJS[plugin] == 'loaded') {
+                clearInterval(si);
+                $().fancybox(options);
+            }
+        }, 100);
     }
 
 })();

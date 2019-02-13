@@ -135,8 +135,8 @@
                         .wrap('<div class="cfw-modal__pos-conteudo"></div>')
                         .wrap('<div class="cfw-modal__conteudo"></div>')
                         .attr('hidden', false)
-                        .closest('.cfw-modal__pos-conteudo').append('<button class="cfw-modal__close-btn js-close-modal" type="button" title="Fechar"></button>')
-                        .parent().find('iframe').each(function () {
+                        .parent().append('<button class="cfw-modal__close-btn js-close-modal" type="button" title="Fechar"></button>')
+                        .closest('.cfw-modal').find('iframe').each(function () {
                             $(this).attr('src', $(this).attr('data-src'));
                         });
             }
