@@ -16,7 +16,12 @@
             var si = setInterval(function () {
                 if (cfw.loadedJS[plugin] == 'loaded') {
                     clearInterval(si);
-                    $(options.element).dotdotdot(options);
+
+                    var elements = document.querySelectorAll(options.element);
+
+                    for (i = 0; i < elements.length; ++i) {
+                        new Dotdotdot(elements[i] , options );
+                    }
                 }
             }, 100);
         }

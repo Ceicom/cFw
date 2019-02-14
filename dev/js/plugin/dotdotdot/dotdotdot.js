@@ -1,6 +1,5 @@
-/*
- *	jQuery dotdotdot 3.1.0
- *	@requires jQuery 1.7.0 or later
+/*!
+ *	dotdotdot JS 4.0.2
  *
  *	dotdotdot.frebsite.nl
  *
@@ -10,554 +9,468 @@
  *	License: CC-BY-NC-4.0
  *	http://creativecommons.org/licenses/by-nc/4.0/
  */
-
-(function ($) {
-    'use strict';
-
-    var _PLUGIN_ = 'dotdotdot';
-    var _VERSION_ = '3.1.0';
-
-    if ($[_PLUGIN_] && $[_PLUGIN_].version > _VERSION_) {
-        return;
-    }
-
-
-
-    /*
-		The class
-	*/
-    $[_PLUGIN_] = function ($container, opts) {
-        this.$dot = $container;
-        this.api = ['getInstance', 'truncate', 'restore', 'destroy', 'watch', 'unwatch'];
-        this.opts = opts;
-
-        var oldAPI = this.$dot.data(_PLUGIN_);
+/**
+ * Class for a multiline ellipsis.
+ */
+var Dotdotdot = /** @class */ (function () {
+    /**
+     * Truncate a multiline element with an ellipsis.
+     *
+     * @param {HTMLElement} 	container						The element to truncate.
+     * @param {object} 			[options=Dotdotdot.options]		Options for the menu.
+     */
+    function Dotdotdot(container, options) {
+        var _this = this;
+        this.container = container;
+        this.options = options;
+        //	Set the watch timeout and -interval;
+        this.watchTimeout = null;
+        this.watchInterval = null;
+        //	Set the resize event handler.
+        this.resizeEvent = null;
+        //	Extend the specified options with the default options.
+        for (var option in Dotdotdot.options) {
+            if (!Dotdotdot.options.hasOwnProperty(option)) {
+                continue;
+            }
+            if (typeof this.options[option] == 'undefined') {
+                this.options[option] = Dotdotdot.options[option];
+            }
+        }
+        //	If the element allready is a dotdotdot instance.
+        //		-> Destroy the previous instance.
+        var oldAPI = this.container['dotdotdot'];
         if (oldAPI) {
             oldAPI.destroy();
         }
-
-        this.init();
+        //	Create the API.
+        this.API = {};
+        ['truncate', 'restore', 'destroy', 'watch', 'unwatch']
+            .forEach(function (fn) {
+            _this.API[fn] = function () {
+                return _this[fn].call(_this);
+            };
+        });
+        //	Store the API.
+        this.container['dotdotdot'] = this.API;
+        //	Store the original style attribute;
+        this.originalStyle = this.container.getAttribute('style') || '';
+        //	Collect the original contents.
+        this.originalContent = this._getOriginalContent();
+        //	Create the ellipsis Text node.
+        this.ellipsis = document.createTextNode(this.options.ellipsis);
+        //	Set CSS properties for the container.
+        var computedStyle = window.getComputedStyle(this.container);
+        if (computedStyle['word-wrap'] !== 'break-word') {
+            this.container.style['word-wrap'] = 'break-word';
+        }
+        if (computedStyle['white-space'] === 'nowrap') {
+            this.container.style['white-space'] = 'normal';
+        }
+        //	Set the max-height for the container.
+        if (this.options.height === null) {
+            this.options.height = this._getMaxHeight();
+        }
+        //	Truncate the text.
         this.truncate();
-
-        if (this.opts.watch) {
+        //	Set the watch.
+        if (this.options.watch) {
             this.watch();
         }
-
-        return this;
+    }
+    /**
+     *	Restore the container to a pre-init state.
+     */
+    Dotdotdot.prototype.restore = function () {
+        var _this = this;
+        //	Stop the watch.
+        this.unwatch();
+        //	Restore the original style.
+        this.container.setAttribute('style', this.originalStyle);
+        //	Restore the original classname.
+        this.container.classList.remove('ddd-truncated');
+        //	Restore the original contents.
+        this.container.innerHTML = '';
+        this.originalContent.forEach(function (element) {
+            _this.container.append(element);
+        });
     };
-
-    $[_PLUGIN_].version = _VERSION_;
-    $[_PLUGIN_].uniqueId = 0;
-
-    $[_PLUGIN_].defaults = {
-        ellipsis: '\u2026',
+    /**
+     * Fully destroy the plugin.
+     */
+    Dotdotdot.prototype.destroy = function () {
+        this.restore();
+        this.container['dotdotdot'] = null;
+    };
+    /**
+     * Start a watch for the truncate process.
+     */
+    Dotdotdot.prototype.watch = function () {
+        var _this = this;
+        //	Stop any previous watch.
+        this.unwatch();
+        /**	The previously measure sizes. */
+        var oldSizes = {
+            width: null,
+            height: null
+        };
+        /**
+         * Measure the sizes and start the truncate proces.
+         */
+        var watchSizes = function (element, width, height) {
+            //	Only if the container is visible.
+            if (_this.container.offsetWidth ||
+                _this.container.offsetHeight ||
+                _this.container.getClientRects().length) {
+                var newSizes = {
+                    'width': element[width],
+                    'height': element[height]
+                };
+                if (oldSizes.width != newSizes.width ||
+                    oldSizes.height != newSizes.height) {
+                    _this.truncate();
+                }
+                return newSizes;
+            }
+            return oldSizes;
+        };
+        //	Update onWindowResize.
+        if (this.options.watch == 'window') {
+            this.resizeEvent = function (evnt) {
+                //	Debounce the resize event to prevent it from being called very often.
+                if (_this.watchTimeout) {
+                    clearTimeout(_this.watchTimeout);
+                }
+                _this.watchTimeout = setTimeout(function () {
+                    oldSizes = watchSizes(window, 'innerWidth', 'innerHeight');
+                }, 100);
+            };
+            window.addEventListener('resize', this.resizeEvent);
+        }
+        //	Update in an interval.
+        else {
+            this.watchInterval = setInterval(function () {
+                oldSizes = watchSizes(_this.container, 'clientWidth', 'clientHeight');
+            }, 1000);
+        }
+    };
+    /**
+     * Stop the watch.
+     */
+    Dotdotdot.prototype.unwatch = function () {
+        //	Stop the windowResize handler.
+        if (this.resizeEvent) {
+            window.removeEventListener('resize', this.resizeEvent);
+            this.resizeEvent = null;
+        }
+        //	Stop the watch interval.
+        if (this.watchInterval) {
+            clearInterval(this.watchInterval);
+        }
+        //	Stop the watch timeout.
+        if (this.watchTimeout) {
+            clearTimeout(this.watchTimeout);
+        }
+    };
+    /**
+     * Start the truncate process.
+     */
+    Dotdotdot.prototype.truncate = function () {
+        var _this = this;
+        var isTruncated = false;
+        //	Fill the container with all the original content.
+        this.container.innerHTML = '';
+        this.originalContent.forEach(function (element) {
+            _this.container.append(element.cloneNode(true));
+        });
+        //	Get the max height.
+        this.maxHeight = this._getMaxHeight();
+        //	Truncate the text.
+        if (!this._fits()) {
+            isTruncated = true;
+            this._truncateToNode(this.container);
+        }
+        //	Add a class to the container to indicate whether or not it is truncated.
+        this.container.classList[isTruncated ? 'add' : 'remove']('ddd-truncated');
+        //	Invoke the callback.
+        this.options.callback.call(this.container, isTruncated);
+        return isTruncated;
+    };
+    /**
+     * Truncate an element by removing elements from the end.
+     *
+     * @param {HTMLElement} element The element to truncate.
+     */
+    Dotdotdot.prototype._truncateToNode = function (element) {
+        var _coms = [], _elms = [];
+        //	Empty the element 
+        //		-> replace all contents with comments
+        Dotdotdot.$.contents(element)
+            .forEach(function (element) {
+            if (element.nodeType != 1 || !element.matches('.ddd-keep')) {
+                var comment = document.createComment('');
+                element.replaceWith(comment);
+                _elms.push(element);
+                _coms.push(comment);
+            }
+        });
+        if (!_elms.length) {
+            return;
+        }
+        //	Re-fill the element 
+        //		-> replace comments with contents until it doesn't fit anymore.
+        for (var e = 0; e < _elms.length; e++) {
+            _coms[e].replaceWith(_elms[e]);
+            var ellipsis = this.ellipsis.cloneNode(true);
+            switch (_elms[e].nodeType) {
+                case 1:
+                    _elms[e].append(ellipsis);
+                    break;
+                case 3:
+                    _elms[e].after(ellipsis);
+                    break;
+            }
+            var fits = this._fits();
+            ellipsis.parentElement.removeChild(ellipsis);
+            if (!fits) {
+                if (this.options.truncate == 'node' && e > 1) {
+                    _elms[e - 2].remove();
+                    return;
+                }
+                break;
+            }
+        }
+        //	Remove left over comments.
+        for (var c = e; c < _coms.length; c++) {
+            _coms[c].remove();
+        }
+        //	Get last element 
+        //		-> the element that overflows.
+        var _last = _elms[Math.max(0, Math.min(e, _elms.length - 1))];
+        //	Border case
+        //		-> the last node with only an ellipsis in it...
+        if (_last.nodeType == 1) {
+            var element_1 = document.createElement(_last.nodeName);
+            element_1.append(this.ellipsis);
+            _last.replaceWith(element_1);
+            //	... fits
+            //		-> Restore the full last element.
+            if (this._fits()) {
+                element_1.replaceWith(_last);
+            }
+            //	... doesn't fit
+            //		-> remove it and go back one element.
+            else {
+                element_1.remove();
+                _last = _elms[Math.max(0, e - 1)];
+            }
+        }
+        //	Proceed inside last element.
+        if (_last.nodeType == 1) {
+            this._truncateToNode(_last);
+        }
+        else {
+            this._truncateToWord(_last);
+        }
+    };
+    /**
+     * Truncate a sentence by removing words from the end.
+     *
+     * @param {HTMLElement} element The element to truncate.
+     */
+    Dotdotdot.prototype._truncateToWord = function (element) {
+        var text = element.textContent, seporator = (text.indexOf(' ') !== -1) ? ' ' : '\u3000', words = text.split(seporator);
+        for (var a = words.length; a >= 0; a--) {
+            element.textContent = this._addEllipsis(words.slice(0, a).join(seporator));
+            if (this._fits()) {
+                if (this.options.truncate == 'letter') {
+                    element.textContent = words.slice(0, a + 1).join(seporator);
+                    this._truncateToLetter(element);
+                }
+                break;
+            }
+        }
+    };
+    /**
+     * Truncate a word by removing letters from the end.
+     *
+     * @param 	{HTMLElement} element The element to truncate.
+     */
+    Dotdotdot.prototype._truncateToLetter = function (element) {
+        var letters = element.textContent.split(''), text = '';
+        for (var a = letters.length; a >= 0; a--) {
+            text = letters.slice(0, a).join('');
+            if (!text.length) {
+                continue;
+            }
+            element.textContent = this._addEllipsis(text);
+            if (this._fits()) {
+                break;
+            }
+        }
+    };
+    /**
+     * Test if the content fits in the container.
+     *
+     * @return {boolean} Whether or not the content fits in the container.
+     */
+    Dotdotdot.prototype._fits = function () {
+        return (this.container.scrollHeight <= this.maxHeight + this.options.tolerance);
+    };
+    /**
+     * Add the ellipsis to a text.
+     *
+     * @param 	{string} text 	The text to add the ellipsis to.
+     * @return	{string}		The text with the added ellipsis.
+     */
+    Dotdotdot.prototype._addEllipsis = function (text) {
+        var remove = [' ', '\u3000', ',', ';', '.', '!', '?'];
+        while (remove.indexOf(text.slice(-1)) > -1) {
+            text = text.slice(0, -1);
+        }
+        text += this.ellipsis.textContent;
+        return text;
+    };
+    /**
+     * Sanitize and collect the original contents.
+     *
+     * @return {array} The sanitizes HTML elements.
+     */
+    Dotdotdot.prototype._getOriginalContent = function () {
+        var keep = 'script, style';
+        if (this.options.keep) {
+            keep += ', ' + this.options.keep;
+        }
+        //	Add "keep" class to nodes to keep.
+        Dotdotdot.$.find(keep, this.container)
+            .forEach(function (elem) {
+            elem.classList.add('ddd-keep');
+        });
+        [this.container].concat(Dotdotdot.$.find('*', this.container)).forEach(function (element) {
+            //	Removes empty Text nodes and joins adjacent Text nodes.
+            element.normalize();
+            //	Loop over all contents and remove nodes that can be removed.
+            Dotdotdot.$.contents(element)
+                .forEach(function (text) {
+                var remove = false;
+                //	Remove Text nodes that do not take up space in the DOM.
+                //	This kinda asumes a default display property for the elements in the container.
+                if (text.nodeType == 3) {
+                    if (text.textContent.trim() == '') {
+                        var prev = text.previousSibling, next = text.nextSibling;
+                        if (text.parentElement.matches('table, thead, tbody, tfoot, tr, dl, ul, ol, video')) {
+                            remove = true;
+                        }
+                        else if (!prev || prev.matches('div, p, table, td, td, dt, dd, li')) {
+                            remove = true;
+                        }
+                        else if (!next || next.matches('div, p, table, td, td, dt, dd, li')) {
+                            remove = true;
+                        }
+                    }
+                }
+                //	Remove Comment nodes.
+                else if (text.nodeType == 8) {
+                    remove = true;
+                }
+                if (remove) {
+                    element.removeChild(text);
+                }
+            });
+        });
+        //	Create a clone of all contents.
+        var content = [];
+        Dotdotdot.$.contents(this.container)
+            .forEach(function (element) {
+            content.push(element.cloneNode(true));
+        });
+        return content;
+    };
+    /**
+     * Find the max-height for the container.
+     *
+     * @return {number} The max-height for the container.
+     */
+    Dotdotdot.prototype._getMaxHeight = function () {
+        if (typeof this.options.height == 'number') {
+            return this.options.height;
+        }
+        var style = window.getComputedStyle(this.container);
+        //	Find smallest CSS height
+        var properties = ['maxHeight', 'height'], height = 0;
+        for (var a = 0; a < properties.length; a++) {
+            var property = style[properties[a]];
+            if (property.slice(-2) == 'px') {
+                height = parseFloat(property);
+                break;
+            }
+        }
+        //	Remove padding-top/bottom when needed.
+        properties = [];
+        switch (style.boxSizing) {
+            case 'border-box':
+                properties.push('borderTopWidth');
+                properties.push('borderBottomWidth');
+            //	no break -> padding needs to be added too
+            case 'padding-box':
+                properties.push('paddingTop');
+                properties.push('paddingBottom');
+                break;
+        }
+        for (var a = 0; a < properties.length; a++) {
+            var property = style[properties[a]];
+            if (property.slice(-2) == 'px') {
+                height -= parseFloat(property);
+            }
+        }
+        //	Sanitize
+        return Math.max(height, 0);
+    };
+    /**	Plugin version. */
+    Dotdotdot.version = '4.0.2';
+    /**	Default options. */
+    Dotdotdot.options = {
+        ellipsis: '\u2026 ',
         callback: function (isTruncated) { },
         truncate: 'word',
         tolerance: 0,
         keep: null,
-        watch: true, //'window',
+        watch: 'window',
         height: null
     };
-
-
-    $[_PLUGIN_].prototype = {
-
-        init: function () {
-            this.watchTimeout = null;
-            this.watchInterval = null;
-            this.uniqueId = $[_PLUGIN_].uniqueId++;
-            this.originalContent = this.$dot.contents();
-            this.originalStyle = this.$dot.attr('style') || '';
-
-            if (this.$dot.css('word-wrap') !== 'break-word') {
-                this.$dot.css('word-wrap', 'break-word');
-            }
-            if (this.$dot.css('white-space') === 'nowrap') {
-                this.$dot.css('white-space', 'normal');
-            }
-
-            if (this.opts.height === null) {
-                this.opts.height = this._getMaxHeight();
-            }
+    /** DOM traversing functions to uniform datatypes. */
+    Dotdotdot.$ = {
+        /**
+         * Find elements by a query selector in an element.
+         *
+         * @param {string}		selector 			The selector to search for.
+         * @param {HTMLElement}	[element=document]	The element to search in.
+         * @return {array} 							The found elements.
+         */
+        find: function (selector, element) {
+            element = element || document;
+            return Array.prototype.slice.call(element.querySelectorAll(selector));
         },
-
-        getInstance: function () {
-            return this;
-        },
-
-        truncate: function () {
-            var that = this;
-
-
-            //	Add inner node for measuring the height
-            this.$inner = this.$dot
-				.wrapInner('<div />')
-				.children()
-				.css({
-				    'display': 'block',
-				    'height': 'auto',
-				    'width': 'auto',
-				    'border': 'none',
-				    'padding': 0,
-				    'margin': 0
-				});
-
-
-            //	Set original content
-            this.$inner
-				.contents()
-				.detach()
-				.end()
-				.append(this.originalContent.clone(true));
-
-
-            //	Add "keep" class to nodes to keep
-            this.$inner
-				.find('script, style')
-				.addClass(_c.keep);
-
-            if (this.opts.keep) {
-                this.$inner
-					.find(this.opts.keep)
-					.addClass(_c.keep);
-            }
-
-
-            //	Filter contents
-            this.$inner
-				.find('*')
-				.not('.' + _c.keep)
-				.add(this.$inner)
-				.contents()
-				.each(
-					function () {
-
-					    var e = this,
-							$e = $(this);
-
-					    //	Text nodes
-					    if (e.nodeType == 3) {
-
-					        //	Remove whitespace where it does not take up space in the DOM
-					        if ($e.parent().is('table, thead, tfoot, tr, dl, ul, ol, video')) {
-					            $e.remove();
-					            return;
-					        }
-
-					        //	Wrap text in a node (during truncation)
-					        if ($e.parent().contents().length > 1) {
-					            var $d = $('<span class="' + _c.text + '">' + that.__getTextContent(e) + '</span>')
-									.css({
-									    'display': 'inline',
-									    'height': 'auto',
-									    'width': 'auto',
-									    'border': 'none',
-									    'padding': 0,
-									    'margin': 0
-									});
-
-					            $e.replaceWith($d);
-					        }
-					    }
-
-					        //	Comment nodes
-					    else if (e.nodeType == 8) {
-					        $e.remove();
-					    }
-
-					}
-				);
-
-
-            this.maxHeight = this._getMaxHeight();
-
-
-            //	Truncate the text
-            var isTruncated = this._truncateNode(this.$dot);
-            this.$dot[isTruncated ? 'addClass' : 'removeClass'](_c.truncated);
-
-
-            //	Unwrap text from the temporarely node
-            this.$inner
-				.find('.' + _c.text)
-				.each(
-					function () {
-					    $(this).replaceWith($(this).contents());
-					}
-				);
-
-
-            //	Remove "keep" class
-            this.$inner
-				.find('.' + _c.keep)
-				.removeClass(_c.keep);
-
-
-            //	Remove inner node
-            this.$inner.replaceWith(this.$inner.contents());
-            this.$inner = null;
-
-            this.opts.callback.call(this.$dot[0], isTruncated);
-            return isTruncated;
-        },
-
-        restore: function () {
-            this.unwatch();
-
-            this.$dot
-				.contents()
-				.detach()
-				.end()
-				.append(this.originalContent)
-				.attr('style', this.originalStyle)
-				.removeClass(_c.truncated);
-        },
-
-        destroy: function () {
-            this.restore();
-            this.$dot.data(_PLUGIN_, null);
-        },
-
-        watch: function () {
-            var that = this;
-
-            this.unwatch();
-
-            var oldSizes = {};
-
-            if (this.opts.watch == 'window') {
-                $wndw.on(
-					_e.resize + that.uniqueId,
-					function (e) {
-					    if (that.watchTimeout) {
-					        clearTimeout(that.watchTimeout);
-					    }
-					    that.watchTimeout = setTimeout(
-							function () {
-
-							    oldSizes = that._watchSizes(oldSizes, $wndw, 'width', 'height');
-
-							}, 100
-						);
-					}
-				);
-
-            }
-            else {
-                this.watchInterval = setInterval(
-					function () {
-					    oldSizes = that._watchSizes(oldSizes, that.$dot, 'innerWidth', 'innerHeight');
-
-					}, 500
-				);
-            }
-        },
-
-        unwatch: function () {
-            $wndw.off(_e.resize + this.uniqueId);
-
-            if (this.watchInterval) {
-                clearInterval(this.watchInterval);
-            }
-
-            if (this.watchTimeout) {
-                clearTimeout(this.watchTimeout);
-            }
-        },
-
-        _api: function () {
-            var that = this,
-				api = {};
-
-            $.each(this.api,
-				function (i) {
-				    var fn = this;
-				    api[fn] = function () {
-				        var re = that[fn].apply(that, arguments);
-				        return (typeof re == 'undefined') ? api : re;
-				    };
-				}
-			);
-            return api;
-        },
-
-        _truncateNode: function ($elem) {
-            var that = this;
-            var isTruncated = false;
-            var forceEllipsis = false;
-
-            $($elem
-				.children()
-				.get()
-				.reverse()
-			)
-				.not('.' + _c.keep)
-				.each(
-					function () {
-					    var e = $(this).contents()[0],
-							$e = $(this);
-
-					    if (isTruncated) {
-					        return;
-					    }
-					    if ($e.hasClass(_c.keep)) {
-					        return;
-					    }
-
-					    if ($e.children().length) {
-					        isTruncated = that._truncateNode($e);
-					    }
-					    else {
-					        if (!that._fits() || forceEllipsis) {
-					            var $x = $('<span>').css('display', 'none');
-					            $e.replaceWith($x);
-					            $e.detach();
-
-					            if (that._fits()) {
-					                if (that.opts.truncate == 'node') {
-					                    return true;
-					                }
-
-					                $x.replaceWith($e);
-					                isTruncated = that._truncateWord($e);
-
-					                if (!isTruncated) {
-					                    forceEllipsis = true;
-					                    $e.detach();
-					                }
-					            }
-					            else {
-					                $x.remove();
-					            }
-					        }
-					    }
-
-					    //	Remove empty nodes
-					    if (!$e.contents().length) {
-					        $e.remove();
-					    }
-					}
-				);
-
-            return isTruncated;
-        },
-
-        _truncateWord: function ($e) {
-            var e = $e.contents()[0];
-
-            if (!e) {
-                return false;
-            }
-
-            var that = this;
-
-            var txt = this.__getTextContent(e),
-				sep = (txt.indexOf(' ') !== -1) ? ' ' : '\u3000',
-				arr = txt.split(sep),
-				str = '';
-
-            for (var a = arr.length; a >= 0; a--) {
-                str = arr.slice(0, a).join(sep);
-
-                //	If even the first child didn't make it
-                if (a == 0) {
-                    if (that.opts.truncate == 'letter') {
-                        that.__setTextContent(e, arr.slice(0, a + 1).join(sep));
-                        return that._truncateLetter(e);
-                    }
-                    return false;
-                }
-
-                if (!str.length) {
-                    continue;
-                }
-
-                that.__setTextContent(e, that._addEllipsis(str));
-
-                if (that._fits()) {
-                    if (that.opts.truncate == 'letter') {
-                        that.__setTextContent(e, arr.slice(0, a + 1).join(sep));
-                        return that._truncateLetter(e);
-                    }
-                    return true;
-                }
-            }
-
-            return false;
-        },
-
-        _truncateLetter: function (e) {
-            var that = this;
-
-            var txt = this.__getTextContent(e),
-				arr = txt.split(''),
-				str = '';
-
-            for (var a = arr.length; a >= 0; a--) {
-                str = arr.slice(0, a).join('');
-
-                if (!str.length) {
-                    continue;
-                }
-
-                that.__setTextContent(e, that._addEllipsis(str));
-
-                if (that._fits()) {
-                    return true;
-                }
-            }
-            return false;
-        },
-
-        _fits: function () {
-            return (this.$inner.innerHeight() <= this.maxHeight + this.opts.tolerance);
-        },
-
-        _addEllipsis: function (txt) {
-            var remove = [' ', '\u3000', ',', ';', '.', '!', '?'];
-
-            while ($.inArray(txt.slice(-1), remove) > -1) {
-                txt = txt.slice(0, -1);
-            }
-            txt += this.opts.ellipsis;
-
-            return txt;
-        },
-
-        _getMaxHeight: function () {
-            if (typeof this.opts.height == 'number') {
-                return this.opts.height;
-            }
-
-            //	Find smallest CSS height
-            var arr = ['maxHeight', 'height'],
-				hgh = 0;
-
-            for (var a = 0; a < arr.length; a++) {
-                hgh = window.getComputedStyle(this.$dot[0])[arr[a]];
-                if (hgh.slice(-2) == 'px') {
-                    hgh = parseFloat(hgh);
-                    break;
-                }
-            }
-
-            //	Remove padding-top/bottom when needed.
-            var arr = [];
-            switch (this.$dot.css('boxSizing')) {
-                case 'border-box':
-                    arr.push('borderTopWidth');
-                    arr.push('borderBottomWidth');
-                    //	no break -> padding needs to be added too
-
-                case 'padding-box':
-                    arr.push('paddingTop');
-                    arr.push('paddingBottom');
-                    break;
-            }
-            for (var a = 0; a < arr.length; a++) {
-                var p = window.getComputedStyle(this.$dot[0])[arr[a]];
-                if (p.slice(-2) == 'px') {
-                    hgh -= parseFloat(p);
-                }
-            }
-
-            //	Sanitize
-            return Math.max(hgh, 0);
-        },
-
-        _watchSizes: function (oldSizes, $elem, width, height) {
-            if (this.$dot.is(':visible')) {
-                var newSizes = {
-                    'width': $elem[width](),
-                    'height': $elem[height]()
-                };
-
-                if (oldSizes.width != newSizes.width || oldSizes.height != newSizes.height) {
-                    this.truncate();
-                }
-
-                return newSizes;
-            }
-            return oldSizes;
-        },
-
-        __getTextContent: function (elem) {
-            var arr = ['nodeValue', 'textContent', 'innerText'];
-            for (var a = 0; a < arr.length; a++) {
-                if (typeof elem[arr[a]] == 'string') {
-                    return elem[arr[a]];
-                }
-            }
-            return '';
-        },
-        __setTextContent: function (elem, content) {
-            var arr = ['nodeValue', 'textContent', 'innerText'];
-            for (var a = 0; a < arr.length; a++) {
-                elem[arr[a]] = content;
-            }
+        /**
+         * Collect child nodes (HTML elements and TextNodes) in an element.
+         *
+         * @param {HTMLElement}	[element=document]	The element to search in.
+         * @return {array} 							The found nodes.
+         */
+        contents: function (element) {
+            element = element || document;
+            return Array.prototype.slice.call(element.childNodes);
         }
     };
-
-
-
-    /*
-		The jQuery plugin
-	*/
-    $.fn[_PLUGIN_] = function (opts) {
-        initPlugin();
-
-        opts = $.extend(true, {}, $[_PLUGIN_].defaults, opts);
-
-        return this.each(
-			function () {
-			    $(this).data(_PLUGIN_, new $[_PLUGIN_]($(this), opts)._api());
-			}
-		);
-    };
-
-
-
-    /*
-		Global variables
-	*/
-    var _c, _d, _e, $wndw;
-
-    function initPlugin() {
-        $wndw = $(window);
-
-        //	Classnames, Datanames, Eventnames
-        _c = {};
-        _d = {};
-        _e = {};
-
-        $.each([_c, _d, _e],
-			function (i, o) {
-			    o.add = function (a) {
-			        a = a.split(' ');
-			        for (var b = 0, l = a.length; b < l; b++) {
-			            o[a[b]] = o.ddd(a[b]);
-			        }
-			    };
-			}
-		);
-
-        //	Classnames
-        _c.ddd = function (c) { return 'ddd-' + c; };
-        _c.add('truncated keep text');
-
-        //	Datanames
-        _d.ddd = function (d) { return 'ddd-' + d; };
-        _d.add('text');
-
-        //	Eventnames
-        _e.ddd = function (e) { return e + '.ddd'; };
-        _e.add('resize');
-
-
-        //	Only once
-        initPlugin = function () { };
-
+    return Dotdotdot;
+}());
+(function ($) {
+    if (typeof $ != 'undefined') {
+        $.fn.dotdotdot = function (options) {
+            return this.each(function (e, element) {
+                var dot = new Dotdotdot(element, options);
+                element['dotdotdot'] = dot.API;
+            });
+        };
     }
-
-
-})(jQuery);
+})(document['Zepto'] || document['jQuery']);
