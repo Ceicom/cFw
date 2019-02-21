@@ -1,6 +1,22 @@
-/*! lg-fullscreen - v1.0.1 - 2016-09-30
+/*! lg-fullscreen - v1.1.0 - 2019-02-19
 * http://sachinchoolur.github.io/lightGallery
-* Copyright (c) 2016 Sachin N; Licensed GPLv3 */
+* Copyright (c) 2019 Sachin N; Licensed GPLv3 */
+
+// (function (root, factory) {
+//   if (typeof define === 'function' && define.amd) {
+//     // AMD. Register as an anonymous module unless amdModuleId is set
+//     define(['jquery'], function (a0) {
+//       return (factory(a0));
+//     });
+//   } else if (typeof module === 'object' && module.exports) {
+//     // Node. Does not work with strict CommonJS, but
+//     // only CommonJS-like environments that support module.exports,
+//     // like Node.
+//     module.exports = factory(require('jquery'));
+//   } else {
+//     factory(root["jQuery"]);
+//   }
+// }(this, function ($) {
 
 (function() {
 
@@ -9,6 +25,15 @@
     var defaults = {
         fullScreen: true
     };
+
+    function isFullScreen() {
+        return (
+            document.fullscreenElement ||
+            document.mozFullScreenElement ||
+            document.webkitFullscreenElement ||
+            document.msFullscreenElement
+        );
+    }
 
     var Fullscreen = function(element) {
 
@@ -75,11 +100,10 @@
         });
 
         this.core.$outer.find('.lg-fullscreen').on('click.lg', function() {
-            if (!document.fullscreenElement &&
-                !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-                _this.requestFullscreen();
-            } else {
+            if (isFullScreen()) {
                 _this.exitFullscreen();
+            } else {
+                _this.requestFullscreen();
             }
         });
 
@@ -88,7 +112,9 @@
     Fullscreen.prototype.destroy = function() {
 
         // exit from fullscreen if activated
-        this.exitFullscreen();
+        if(isFullScreen()) {
+            this.exitFullscreen();
+        }
 
         $(document).off('fullscreenchange.lg webkitfullscreenchange.lg mozfullscreenchange.lg MSFullscreenChange.lg');
     };
@@ -96,3 +122,5 @@
     $.fn.lightGallery.modules.fullscreen = Fullscreen;
 
 })();
+
+//}));

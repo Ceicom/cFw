@@ -9,15 +9,15 @@
   "author": "ceicom",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "autoprefixer": "latest",
-    "grunt": "latest",
-    "grunt-contrib-clean": "latest",
-    "grunt-contrib-cssmin": "latest",
-    "grunt-contrib-copy": "latest",
-    "grunt-contrib-uglify": "latest",
-    "grunt-contrib-watch": "latest",
-    "grunt-jsonmin": "^0.2.4",
-    "grunt-postcss": "latest",
-    "load-grunt-tasks": "latest"
+    "autoprefixer": "9.4.8",
+    "grunt": "1.0.3",
+    "grunt-contrib-clean": "2.0.0",
+    "grunt-contrib-cssmin": "3.0.0",
+    "grunt-contrib-copy": "1.0.0",
+    "grunt-contrib-uglify": "4.0.0",
+    "grunt-contrib-watch": "1.1.0",
+    "grunt-jsonmin": "0.2.4",
+    "grunt-postcss": "0.9.0",
+    "load-grunt-tasks": "4.0.0"
   }
 }

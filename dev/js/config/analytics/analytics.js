@@ -8,6 +8,8 @@
         if (!idAccount)
             console.warn('obrigatório informar UA para inicializar o analytics');
         else {
+            
+            console.warn('considere atualizar seu código para o TAGMANAGER');
 
             var si = setInterval(function () {
                 if (cfw.loadedJS[plugin] == 'loaded') {

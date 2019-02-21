@@ -124,8 +124,6 @@
 
             $(this).attr('data-modal-type', type);
 
-            //if ($(this).attr('data-auto-modal') && !aModal) aModal = $(this);
-
             if (type == 'txt') {
                 var $el = $(checkIdClass($(this).attr('data-modal')));
 
