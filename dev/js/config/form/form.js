@@ -8,7 +8,8 @@
             validateform: true,
             mask: true,
             validateformdata: true,
-            submitform: true
+            submitform: true,
+            invisiblecaptcha: false
         };
 
         var options = $.extend(config, options);
@@ -20,5 +21,10 @@
             cfw[k].init(typeof (v) === 'object' ? v : {});
         });
     }
+
+    cfw.form.captchas = {
+        itens: {},
+        active: null
+    };
 
 })();

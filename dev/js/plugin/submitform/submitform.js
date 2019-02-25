@@ -5,56 +5,53 @@
 
     cfwSubmitForm.form = $('[data-submitform]');
     cfwSubmitForm.btn = cfwSubmitForm.form.find('[type="submit"]');
+    cfwSubmitForm.active = null;
 
     cfwSubmitForm.dealBtn = function (status) {
         if (!status) status = cfwSubmitForm.btn.attr('disabled');
         cfwSubmitForm.btn.attr('disabled', !status);
     };
 
-    cfwSubmitForm.dealCaptcha = function ($form) {
-
+    cfwSubmitForm.ajaxCaptcha = function(token){
         var that = this;
-        var catpchaResponse = grecaptcha.getResponse();
+        var captcha = $.ajax({
+            type: 'POST',
+            url: '/modulos/handlers/captcha.ashx',
+            data: {
+                'g-recaptcha-response': token
+            }
+        });
+    
+        captcha.then(function (data) {
+            if (!data.success || data.success == 'false') {
+                swal({ title: 'Ops', text: 'Código de verificação inválido, tente novamente.', type: 'info' });
+                that.dealBtn();
+                grecaptcha.reset(cfw.invisiblecaptcha.active);
+            } else
+                that.submitForm();
+        });
+    }
 
-        if (catpchaResponse) {
+    cfwSubmitForm.dealCaptcha = function () {
+        var that = this;
 
-            // confirma captcha
-            var captcha = $.ajax({
-                type: 'POST',
-                url: '/modulos/handlers/captcha.ashx',
-                data: { 'g-recaptcha-response': catpchaResponse }
-            });
-
-            captcha.then(function (data) {
-
-                var r = data.success;
-
-                // se não existir resposta ou a resposta for false
-                if (!r || r == 'false') {
-                    swal({ title: 'Ops', text: 'Código de verificação inválido, tente novamente.', type: 'info' });
-                    grecaptcha.reset();
-                    that.dealBtn();
-                } else
-                    that.submitForm($form);
-            });
-
-        }
-
+        if (grecaptcha.getResponse())
+            cfwSubmitForm.ajaxCaptcha(grecaptcha.getResponse());
         else {
             swal({ title: 'Erro', text: 'Preencha o <strong>Captcha</strong> para continuar.', type: 'error' });
             that.dealBtn();
         }
     }
 
-    cfwSubmitForm.FormData = function ($form) {
-
+    cfwSubmitForm.FormData = function () {
+        var that = this;
         var returnData = false;
 
         if (typeof window.FormData !== 'undefined') {
 
             returnData = new FormData();
 
-            var inputFile = $form.find('input[type="file"]');
+            var inputFile = that.active.find('input[type="file"]');
             var formInfo = $('form').serialize().replace(/\+/g, ' ').split('&');
 
             if (inputFile.length) {
@@ -87,12 +84,11 @@
         return returnData;
     }
 
-    cfwSubmitForm.submitForm = function ($form) {
-
+    cfwSubmitForm.submitForm = function () {
         var that = this;
-        var type = $form.attr('data-submitform');
-        var formData = that.FormData($form) || $('form').serialize();
-        var handler = $form.attr('data-handlerform') || '/modulos/handlers/formularios.ashx';
+        var type = that.active.attr('data-submitform');
+        var formData = that.FormData() || $('form').serialize();
+        var handler = that.active.attr('data-handlerform') || '/modulos/handlers/formularios.ashx';
 
         /**/
         var ajaxRequest = {}
@@ -105,36 +101,43 @@
             ajaxRequest.contentType = false;
 
         $.ajax(ajaxRequest).done(function (data) {
-
-            if (location.search.indexOf('debug=true') > 0)
-                console.log(data);
-
-            $(document).trigger('cfw_submitform', [data, $form]);
+            $(document).trigger('cfw_submitform', [data, that.active]);
             that.dealBtn();
+
+            if (typeof grecaptcha !== 'undefined')
+                grecaptcha.reset(cfw.invisiblecaptcha.active);
         });
     }
 
     // form submit
     $('form').on('submit', function (e) {
-
         var form = $('body').attr('data-form');
 
         if (form) {
             e.preventDefault();
             cfwSubmitForm.dealBtn();
 
-            var $form = $('[data-submitform="' + form + '"]');
+            // reset
+            cfw.invisiblecaptcha.active = undefined;
+
+            cfwSubmitForm.active = $('[data-submitform="' + form + '"]');
+            var captcha = cfwSubmitForm.active.find('.g-recaptcha');
 
             // form com captcha
-            if ($form.find('.g-recaptcha').length)
-                cfwSubmitForm.dealCaptcha($form);
+            if (captcha.length){
+                if(cfw.invisiblecaptcha.list){
+                    cfw.invisiblecaptcha.active = cfw.invisiblecaptcha.list[captcha.attr('id')];
+                    grecaptcha.execute(cfw.invisiblecaptcha.active);
+                }
+                else
+                    cfwSubmitForm.dealCaptcha();
+            }
 
                 // form sem captcha
             else
-                cfwSubmitForm.submitForm($form);
+                cfwSubmitForm.submitForm();
 
         }
-
     });
 
     // commonjs
