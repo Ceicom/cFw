@@ -65,9 +65,13 @@
     }
 
     cModal.prototype.dealLink = function (link) {
-        var prelink = link.indexOf('@') > 0 ? 'href="mailto:' : 'href="//';
+        var prelink = link.indexOf('@') > 0 ? 'href="mailto:' : 'href="';
         var aftlink = link.indexOf('@') < 0 ? 'target="_blank"' : '';
-        return (link) ? prelink + link.replace(/^[http]+s?:\/\//gi, '') + '"' + aftlink : '';
+
+        if (link.indexOf('@') < 0 && !/^[http]+s?:\/\//gi.exec(link))
+            prelink += '//';
+
+        return (link) ? prelink + link + '"' + aftlink : '';
     }
 
     cModal.prototype.open = function ($el) {
