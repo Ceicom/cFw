@@ -23,7 +23,8 @@
                         'validateformdata', // validação formData       [ceicom]
                         'zipcode',          // completa end pelo cep    [ceicom]
                         'tagmanager',       // tagmanager do google     [https://tagmanager.google.com/]
-                        'invisiblecaptcha'  // captcha v2 invisible     [https://developers.google.com/recaptcha/docs/invisible]
+                        'invisiblecaptcha', // captcha v2 invisible     [https://developers.google.com/recaptcha/docs/invisible]
+                        'facebook'          // posts do facebook        [https://developers.facebook.com/]
     ];
 
     var cfwCore     = function () { };      // core

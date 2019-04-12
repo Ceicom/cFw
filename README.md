@@ -30,3 +30,4 @@ Some codes that will speed up our development;
 * [owlcarousel](https://github.com/Ceicom/cFw/tree/master/dev/js/config/owlcarousel)
 * [printthis](https://github.com/Ceicom/cFw/tree/master/dev/js/config/printthis)
 * [sweetalert](https://github.com/Ceicom/cFw/tree/master/dev/js/config/sweetalert)
+* [facebook](https://github.com/Ceicom/cFw/tree/master/dev/js/config/facebook)
