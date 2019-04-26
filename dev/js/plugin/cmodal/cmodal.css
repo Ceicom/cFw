@@ -26,8 +26,8 @@
 
 .cfw-modal__close-btn {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0px !important;
+    right: 0px !important;
     width: 30px;
     height: 30px;
     line-height: 20px;
@@ -99,7 +99,7 @@
     }
 
     .cfw-modal .cfw-modal__close-btn {
-        top: 0;
-        right: 0;
+        top: 5px !important;
+        right: 5px !important;
     }
 }
