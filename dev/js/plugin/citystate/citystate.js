@@ -5,8 +5,42 @@
 
     citystate.init = function () {
         this
+            .clean()
             .setData()
             .start();
+    }
+
+    citystate.clean = function(){
+        localStorage.removeItem('cfw_citst_states');
+        localStorage.removeItem('cfw_citst_ac');
+        localStorage.removeItem('cfw_citst_al');
+        localStorage.removeItem('cfw_citst_am');
+        localStorage.removeItem('cfw_citst_ap');
+        localStorage.removeItem('cfw_citst_ba');
+        localStorage.removeItem('cfw_citst_ce');
+        localStorage.removeItem('cfw_citst_df');
+        localStorage.removeItem('cfw_citst_es');
+        localStorage.removeItem('cfw_citst_go');
+        localStorage.removeItem('cfw_citst_ma');
+        localStorage.removeItem('cfw_citst_mg');
+        localStorage.removeItem('cfw_citst_ms');
+        localStorage.removeItem('cfw_citst_mt');
+        localStorage.removeItem('cfw_citst_pa');
+        localStorage.removeItem('cfw_citst_pb');
+        localStorage.removeItem('cfw_citst_pe');
+        localStorage.removeItem('cfw_citst_pi');
+        localStorage.removeItem('cfw_citst_pr');
+        localStorage.removeItem('cfw_citst_rj');
+        localStorage.removeItem('cfw_citst_rn');
+        localStorage.removeItem('cfw_citst_ro');
+        localStorage.removeItem('cfw_citst_rr');
+        localStorage.removeItem('cfw_citst_rs');
+        localStorage.removeItem('cfw_citst_sc');
+        localStorage.removeItem('cfw_citst_se');
+        localStorage.removeItem('cfw_citst_sp');
+        localStorage.removeItem('cfw_citst_to');
+
+        return this;
     }
 
     citystate.setData = function () {
@@ -36,7 +70,7 @@
     citystate.start = function () {
         var that = this;
 
-        if (!localStorage.getItem('cfw_citst_states')) {
+        if (!localStorage.getItem('cfw_citst_states_v1')) {
             var haveSelects = false;
 
             $('select[data-list]:not([data-list-loaded="true"])').each(function () {
@@ -50,7 +84,7 @@
                 });
         }
 
-        if (localStorage.getItem('cfw_citst_states'))
+        if (localStorage.getItem('cfw_citst_states_v1'))
             that.dealSelects();
 
     }
@@ -60,18 +94,19 @@
 
         if (what) {
 
-            if (!localStorage.getItem('cfw_citst_' + what)) {
+            if (!localStorage.getItem('cfw_citst_' + what + '_v1')) {
                 var file = what == 'states' ? 'states.min.json' : 'cities/' + what.toLowerCase() + '.min.json';
 
                 $.getJSON(cfw.pathFile.json + file, function (data) {
-                    localStorage.setItem('cfw_citst_' + what, JSON.stringify(data));
-                    if ($el) that.dealData(what, $el, data);
+                    var dados = $.isArray(data) ? data.sort() : data;
+                    localStorage.setItem('cfw_citst_' + what + '_v1', JSON.stringify(dados));
+                    if ($el) that.dealData(what, $el, dados);
                     if (typeof (cb) == 'function') cb();
                 });
             }
 
-            if ($el && localStorage.getItem('cfw_citst_' + what))
-                that.dealData(what, $el, JSON.parse(localStorage.getItem('cfw_citst_' + what)));
+            if ($el && localStorage.getItem('cfw_citst_' + what + '_v1'))
+                that.dealData(what, $el, JSON.parse(localStorage.getItem('cfw_citst_' + what + '_v1')));
 
         }
         else
