@@ -6,7 +6,7 @@
 
     facebook.prototype._formatTemplate = function (template, data) {
         var replacer = function (match, p1) {
-            return data[p1];
+            return data[p1] || '';
         }
         return template.replace(/\[(\w*)\]/g, replacer);
     }
